@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pirillo95 - A Windows 95 Nostalgia Experience by Chris Pirillo</title>
+    <meta name="description" content="Experience the nostalgia of Windows 95 with Pirillo95, a web-based retro OS simulator featuring classic apps and easter eggs. Created by Chris Pirillo.">
+    <meta name="keywords" content="Pirillo95, Chris Pirillo, Windows 95, retro, OS simulator, nostalgia, 90s tech, web desktop">
+    <meta name="author" content="Chris Pirillo">
+    <link rel="canonical" href="https://example.com/pirillo95.html">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="Pirillo95 - A Windows 95 Nostalgia Experience">
+    <meta property="og:description" content="Relive the 90s with Pirillo95, a web-based retro OS simulator by Chris Pirillo. Explore classic apps and enjoy a dose of digital nostalgia!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pirillo.com/arcade/pirillo95.html">
+    <meta property="og:image" content="https://pirillo.com/arcade/images/pirillo95.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Pirillo95">
+    <meta property="article:author" content="https://www.facebook.com/chrispirillo"> 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@chrispirillo">
+    <meta name="twitter:creator" content="@chrispirillo">
+    <meta name="twitter:title" content="Pirillo95 - A Windows 95 Nostalgia Experience">
+    <meta name="twitter:description" content="Relive the 90s with Pirillo95, a web-based retro OS simulator by Chris Pirillo. Explore classic apps and enjoy a dose of digital nostalgia!">
+    <meta name="twitter:image" content="https://pirillo.com/arcade/images/pirillo95.png">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js" as="script">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Pirillo95 - A Windows 95 Nostalgia Experience",
+      "description": "Experience the nostalgia of Windows 95 with Pirillo95, a web-based retro OS simulator featuring classic apps and easter eggs. Created by Chris Pirillo.",
+      "url": "https://pirillo.com/arcade/pirillo95.html", /* SEO: IMPORTANT: Replace with actual production URL */
+      "keywords": "Pirillo95, Chris Pirillo, Windows 95, retro, OS simulator, nostalgia, 90s tech, web desktop, online game",
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Pirillo95",
+        "operatingSystem": "Web Browser (Simulates Windows 95)",
+        "applicationCategory": "GameApplication",
+        "genre": "Simulation",
+        "author": {
+          "@type": "Person",
+          "name": "Chris Pirillo",
+          "url": "https://pirillo.com/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "interactionStatistic": [
+          {
+            "@type": "InteractionCounter",
+            "interactionType": "https://schema.org/PlayAction",
+            "userInteractionCount": 0 // This could be dynamically updated if tracking plays
+          }
+        ]
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Pirillo95",
+          "item": "https://pirillo.com/arcade/pirillo95.html" /* SEO: IMPORTANT: Replace with actual production URL */
+        }]
+      },
+      "publisher": {
+        "@type": "Person", /* Assuming Chris Pirillo is the publisher */
+        "name": "Chris Pirillo",
+        "url": "https://pirillo.com/"
+        /* SEO: If there's a distinct organization logo, use Organization type and logo property
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pirillo.com/arcade/images/pirillo95.png"
+        }
+        */
+      },
+      "datePublished": "2025-05-20", /* SEO: Replace with actual publication date */
+      "dateModified": "2025-05-20" /* SEO: Replace with actual last modified date */
+    }
+    </script>
+
+    <style>
+        /* General Resets and Body Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: "Tahoma", "Geneva", sans-serif;
+            font-size: 12px;
+            user-select: none;
+            background-color: #000000;
+        }
+
+        .desktop {
+            background-color: #008080; /* Windows 95 teal */
+            height: calc(100vh - 40px); /* Use vh for full viewport height minus taskbar */
+            width: 100%;
+            position: relative;
+            overflow: auto;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        /* Standard 3D Border Effects */
+        .win95-border-raised {
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-bottom: 1px solid #404040;
+            border-right: 1px solid #404040;
+            box-shadow: 1px 1px 0px #c0c0c0 inset, -1px -1px 0px #808080 inset;
+        }
+
+        .win95-border-inset {
+            border-top: 1px solid #404040;
+            border-left: 1px solid #404040;
+            border-bottom: 1px solid #ffffff;
+            border-right: 1px solid #ffffff;
+            box-shadow: 1px 1px 0px #808080 inset, -1px -1px 0px #c0c0c0 inset;
+        }
+
+        /* Taskbar Styling */
+        .taskbar {
+            background-color: #c0c0c0;
+            height: 40px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            padding: 2px 4px;
+            box-sizing: border-box;
+            border-top: 1px solid #ffffff;
+            z-index: 10000;
+        }
+
+        .start-button {
+            background-color: #c0c0c0;
+            color: #000000;
+            padding: 3px 8px;
+            margin-right: 4px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            height: 32px;
+            box-sizing: border-box;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .start-button.active {
+            border-top: 1px solid #404040;
+            border-left: 1px solid #404040;
+            border-bottom: 1px solid #ffffff;
+            border-right: 1px solid #ffffff;
+            padding: 4px 7px 2px 9px;
+        }
+        .start-button:active {
+             padding: 4px 7px 2px 9px;
+        }
+
+
+        .start-button-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" fill="%23c0c0c0" stroke="%23fff" stroke-width="0.5"/><path d="M6 5 Q8 3 12 4 T18 5 L17 8 H7 Z" fill="black" /> <rect x="4" y="9" width="6" height="6" rx="1" fill="none" stroke="black" stroke-width="1.5"/><rect x="14" y="9" width="6" height="6" rx="1" fill="none" stroke="black" stroke-width="1.5"/><line x1="10" y1="12" x2="14" y2="12" stroke="black" stroke-width="1.5"/><circle cx="7" cy="12" r="1.2" fill="black"/><circle cx="17" cy="12" r="1.2" fill="black"/><path d="M8 17 Q12 19 16 17" fill="none" stroke="black" stroke-width="1.5"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+
+        .taskbar-separator {
+            height: calc(100% - 4px);
+            width: 1px;
+            background-color: #808080;
+            border-right: 1px solid #ffffff;
+            margin: 2px 4px;
+            flex-shrink: 0;
+        }
+
+
+        .taskbar-apps {
+            display: flex;
+            flex-grow: 1;
+            height: 100%;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .taskbar-app {
+            background-color: #c0c0c0;
+            color: #000000;
+            padding: 3px 6px;
+            margin-right: 2px;
+            height: 30px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            cursor: default;
+            flex-shrink: 1;
+        }
+
+        .taskbar-app.active {
+            font-weight: bold;
+            background-color: #a0a0a0;
+            border-top: 1px solid #404040;
+            border-left: 1px solid #404040;
+            border-bottom: 1px solid #ffffff;
+            border-right: 1px solid #ffffff;
+        }
+
+        .taskbar-app-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .system-tray {
+            flex-shrink: 0;
+        }
+        .volume-control {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 5px;
+            padding: 2px;
+        }
+        .icon-volume-on { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 6 L6 6 L10 2 L10 14 L6 10 L3 10 Z M12 4 A4 4 0 0 1 12 12 M11 6 A2 2 0 0 1 11 10" fill="%23FFEB3B" stroke="black" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/></svg>');}
+        .icon-volume-off { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><path d="M3 6 L6 6 L10 2 L10 14 L6 10 L3 10 Z M12 4 A4 4 0 0 1 12 12 M11 6 A2 2 0 0 1 11 10" fill="%23FFEB3B" stroke="black" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/></g><line x1="1" y1="1" x2="15" y2="15" stroke="red" stroke-width="3"/><line x1="1" y1="15" x2="15" y2="1" stroke="red" stroke-width="3"/></svg>');}
+
+
+        .clock-area {
+            background-color: #c0c0c0;
+            padding: 4px 6px;
+            height: 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 2px;
+        }
+        #clockText {
+           /* No specific styles needed unless for fine-tuning */
+        }
+
+
+        /* Start Menu Styling */
+        .start-menu {
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            width: 200px;
+            background-color: #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            padding: 2px;
+            display: none;
+            z-index: 10010; /* Higher z-index for start menu itself */
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #404040;
+            border-bottom: 1px solid #404040;
+            overflow: visible; /* Allow submenus to show outside */
+        }
+
+        .start-menu-header {
+            background-color: #808080;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 10px;
+            text-align: center;
+            border-bottom: 1px solid #404040;
+            margin-bottom: 2px;
+        }
+        .start-menu-header span {
+            font-style: italic;
+        }
+
+        .start-menu-items {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            max-height: calc(100vh - 40px - 40px - 8px); /* viewport - taskbar - header - padding */
+            overflow-y: auto;
+            overflow-x: visible;
+        }
+
+        .start-menu-item {
+            padding: 5px 10px 5px 30px;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            position: relative;
+            font-size: 11px;
+            white-space: nowrap;
+            color: #000000;
+            transition: background-color 0.1s ease, color 0.1s ease; /* Added for smooth hover */
+        }
+         .start-menu-item.has-submenu::after {
+            content: '▸';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+        }
+
+        /* General hover for ALL start menu items, including "Shut Down" */
+        .start-menu-item:hover {
+            background-color: #000080; /* Blue background */
+            color: #ffffff !important; /* White text */
+        }
+        .start-menu-item:hover::after { /* For items with submenus, ensure arrow also changes color */
+            color: #ffffff;
+        }
+
+        .start-menu-item-icon {
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            left: 7px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* This class is specifically for when a submenu IS open due to hover on parent */
+        .start-menu-item.hover-open {
+            background-color: #000080;
+            color: #ffffff !important;
+        }
+        .start-menu-item.hover-open::after {
+            color: #ffffff;
+        }
+
+
+        .start-menu-submenu {
+            display: none;
+            position: fixed; /* Changed to fixed for viewport-relative positioning */
+            width: 190px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #404040;
+            border-bottom: 1px solid #404040;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            padding: 2px;
+            z-index: 10020; /* Higher than start-menu */
+            list-style: none;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+         .start-menu-submenu .start-menu-item {
+            font-size: 11px;
+            padding: 5px 10px 5px 30px;
+            color: #000000;
+        }
+        /* Hover for items within submenu (covered by general .start-menu-item:hover now) */
+        /* .start-menu-submenu .start-menu-item:hover {
+            background-color: #000080;
+            color: #ffffff !important;
+        }
+         .start-menu-submenu .start-menu-item:hover::after {
+            color: #ffffff;
+        } */
+
+
+        .start-menu-separator {
+            height: 1px;
+            background-color: #808080;
+            border-bottom: 1px solid #ffffff;
+            margin: 3px 0;
+        }
+
+        /* Icons */
+        .icon-start-notepad, .icon-notepad { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" fill="white" stroke="black" stroke-width="1"/><rect x="2" y="1" width="12" height="3" fill="%23000080"/><line x1="4" y1="6" x2="12" y2="6" stroke="%23A0A0A0" stroke-width="1"/><line x1="4" y1="8" x2="12" y2="8" stroke="%23A0A0A0" stroke-width="1"/><line x1="4" y1="10" x2="10" y2="10" stroke="%23A0A0A0" stroke-width="1"/></svg>');}
+        .icon-shutdown { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="3" y="5" width="10" height="8" fill="%23FFC107" stroke="%23E65100" stroke-width="0.5"/><rect x="3.5" y="5.5" width="9" height="7" fill="%2303A9F4" stroke="%2301579B" stroke-width="0.5"/><circle cx="8" cy="3" r="1.5" fill="%23F44336" stroke="%23B71C1C" stroke-width="0.5"/><line x1="8" y1="4.5" x2="8" y2="6.5" stroke="%23B71C1C" stroke-width="1"/><text x="5.5" y="10.5" font-family="sans-serif" font-size="3.5" fill="white">OFF</text></svg>'); }
+        .icon-pet-rock { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M4 12 A6 6 0 0 1 12 12 A5 4 0 0 0 4 12 Z" fill="%239E9E9E" stroke="%23616161" stroke-width="1"/><circle cx="7" cy="9" r="0.5" fill="black"/><circle cx="9" cy="9" r="0.5" fill="black"/></svg>');}
+        .icon-click-counter { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="3" y="3" width="10" height="10" rx="2" fill="%234CAF50" stroke="%232E7D32" stroke-width="1"/><text x="8" y="11" font-size="8" fill="white" text-anchor="middle">123</text></svg>');}
+        .icon-bad-joke { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8,2 C4,2 2,5 2,8 C2,11 4,14 8,14 C12,14 14,11 14,8 C14,5 12,2 8,2 Z M5,7 L7,7 L7,9 L5,9 Z M9,7 L11,7 L11,9 L9,9 Z M5,10 C6,11.5 10,11.5 11,10 L10,10.5 L6,10.5 Z" fill="%23FFC107" stroke="%23E65100" stroke-width="0.5"/></svg>');}
+        .icon-useless-fact { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="%23E0E0E0" stroke="%23757575" stroke-width="1"/><text x="8" y="11" font-size="10" fill="%23424242" text-anchor="middle">i</text></svg>');}
+        .icon-mood-color { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="%232196F3" stroke="%230D47A1" stroke-width="1"/><circle cx="5" cy="5" r="1.5" fill="yellow"/><circle cx="11" cy="5" r="1.5" fill="red"/><circle cx="8" cy="11" r="1.5" fill="green"/></svg>');}
+        .icon-beep-box { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3,6 L13,6 L13,10 L3,10 Z" fill="%23607D8B" stroke="%2337474F" stroke-width="1"/><circle cx="5" cy="8" r="1" fill="red"/><circle cx="8" cy="8" r="1" fill="yellow"/><circle cx="11" cy="8" r="1" fill="lime"/></svg>');}
+        .icon-silly-fortune { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5 C2 3 4 2 8 2 C12 2 14 3 14 5 L13 11 L9 13 L8 14 L7 13 L3 11 Z" fill="%23FFF9C4" stroke="%23FBC02D" stroke-width="1"/><text x="8" y="9" font-size="5" fill="black" text-anchor="middle">🔮</text></svg>');}
+        .icon-annoying-assistant { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="6" r="3" fill="%2390A4AE" stroke="%23455A64" stroke-width="1"/><path d="M4 11 C4 9 6 8 8 8 C10 8 12 9 12 11 L12 13 L4 13 Z" fill="%23B0BEC5" stroke="%23546E7A" stroke-width="1"/></svg>');}
+        .icon-infinite-progress { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="6" width="12" height="4" rx="1" fill="%23CFD8DC" stroke="%2378909C" stroke-width="0.5"/><rect x="2.5" y="6.5" width="6" height="3" rx="0.5" fill="%2303A9F4"/></svg>');}
+        .icon-text-shuffler { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="2" y="12" font-size="10" fill="%23F44336">A</text><text x="5" y="7" font-size="10" fill="%234CAF50" transform="rotate(15 6 7)">B</text><text x="9" y="13" font-size="10" fill="%232196F3" transform="rotate(-10 10 13)">C</text></svg>');}
+        .icon-compliment-generator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1 C5 1 3 3 3 6 C3 9 8 15 8 15 C8 15 13 9 13 6 C13 3 11 1 8 1 Z" fill="%23FF69B4" stroke="black" stroke-width="0.5"/><text x="8" y="9" font-size="6" fill="white" text-anchor="middle">😊</text></svg>');}
+        .icon-mild-insult { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1 C5 1 3 3 3 6 C3 9 8 15 8 15 C8 15 13 9 13 6 C13 3 11 1 8 1 Z" fill="%238B0000" stroke="black" stroke-width="0.5"/><text x="8" y="9" font-size="6" fill="white" text-anchor="middle">😠</text></svg>');}
+        .icon-magic-8-ball { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="black" stroke="white" stroke-width="1"/><text x="8" y="10.5" font-size="8" fill="white" text-anchor="middle">8</text></svg>');}
+        .icon-random-number { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="%23BA68C8" stroke="black" stroke-width="0.5"/><text x="8" y="11" font-size="8" fill="white" text-anchor="middle">?</text></svg>');}
+        .icon-dice-roller { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="3" y="3" width="10" height="10" rx="1" fill="white" stroke="black" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="black"/><circle cx="10" cy="10" r="1" fill="black"/></svg>');}
+        .icon-coin-flipper { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="gold" stroke="black" stroke-width="1"/><text x="8" y="10.5" font-size="6" fill="black" text-anchor="middle">P</text></svg>');}
+        .icon-ascii-art { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="2" y="12" font-family="monospace" font-size="10" fill="green">:=)</text></svg>');}
+        .icon-simple-color-picker { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2 H14 V14 H2Z" fill="red"/><path d="M5 5 H14 V14 H5Z" fill="green"/><path d="M8 8 H14 V14 H8Z" fill="blue"/></svg>');}
+        .icon-silly-sound-board { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5 L6 2 L6 14 L2 11Z" fill="%23FF9800"/><circle cx="9" cy="5" r="1.5" fill="red"/><circle cx="12" cy="8" r="1.5" fill="blue"/><circle cx="9" cy="11" r="1.5" fill="green"/></svg>');}
+        .icon-text-reverser { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="8" y="12" font-size="10" fill="%2300BCD4" text-anchor="middle" transform="scale(-1, 1) translate(-16,0)">R</text></svg>');}
+        .icon-word-scrambler { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="3" y="12" font-size="8">W</text><text x="6" y="7" font-size="8" transform="rotate(20 6 7)">O</text><text x="9" y="11" font-size="8" transform="rotate(-15 9 11)">R</text><text x="12" y="8" font-size="8" transform="rotate(10 12 8)">D</text></svg>');}
+        .icon-pirate-speak { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="black"/><path d="M5 5 L11 5 L8 8 Z M5 9 L11 9" stroke="white" stroke-width="1.5"/><circle cx="6" cy="6" r="1" fill="red"/></svg>');}
+        .icon-echo-chamber { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M4 8 A4 4 0 0 1 8 4 A4 4 0 0 1 12 8 A4 4 0 0 1 8 12 A4 4 0 0 1 4 8 M6 8 A2 2 0 0 1 8 6 A2 2 0 0 1 10 8 A2 2 0 0 1 8 10 A2 2 0 0 1 6 8" fill="none" stroke="%234DB6AC" stroke-width="1.5"/></svg>');}
+        .icon-loading-simulator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="%23795548" stroke-width="2" stroke-dasharray="3 3" fill="none"/></svg>');}
+        .icon-useless-button { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" rx="1" fill="%239E9E9E" stroke="black" stroke-width="1"/></svg>');}
+        .icon-is-it-friday { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="%23AED581" stroke="black" stroke-width="0.5"/><text x="8" y="11" font-size="8" fill="black" text-anchor="middle">FRI?</text></svg>');}
+        .icon-spirit-animal { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 2 C5 4 3 7 3 9 C3 12 5 14 8 14 C11 14 13 12 13 9 C13 7 11 4 8 2 M6 8 L7 7 M9 7 L10 8 M6 10 Q8 11 10 10" fill="%23FFB74D" stroke="black" stroke-width="0.5"/></svg>');}
+        .icon-fake-password { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="5" width="12" height="6" fill="%23B0BEC5"/><circle cx="5" cy="8" r="1"/><circle cx="8" cy="8" r="1"/><circle cx="11" cy="8" r="1"/></svg>');}
+        .icon-zen-garden { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="%23F0F4C3"/><path d="M3 12 Q5 10 7 12 Q9 14 11 12 Q13 10 15 12 M2 9 Q4 7 6 9 Q8 11 10 9 Q12 7 14 9" stroke="%23A1887F" stroke-width="0.5" fill="none"/></svg>');}
+        .icon-meaning-of-life { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="8" y="12" font-size="10" fill="%236A1B9A" text-anchor="middle" font-weight="bold">42</text></svg>');}
+        .icon-desktop-pet { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5 12 C 3 10, 3 6, 5 4 S 11 2, 11 4 S 9 6, 11 8 S 13 10, 11 12 S 5 14, 5 12" fill="%23FFC107" stroke="black" stroke-width="0.5"/><circle cx="7" cy="7" r="1" fill="black"/><circle cx="9" cy="7" r="1" fill="black"/></svg>');}
+        .icon-window-washer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="lightblue" stroke="blue" stroke-width="1"/><line x1="2" y1="8" x2="14" y2="8" stroke="white" stroke-width="3"/><line x1="8" y1="2" x2="8" y2="14" stroke="white" stroke-width="3"/></svg>');}
+        .icon-bad-translator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="8">A➜?</text></svg>');}
+        .icon-virtual-bubblewrap { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="4" cy="4" r="2" fill="rgba(173,216,230,0.7)" stroke="blue"/><circle cx="10" cy="4" r="2" fill="rgba(173,216,230,0.7)" stroke="blue"/><circle cx="7" cy="8" r="2" fill="rgba(173,216,230,0.3)" stroke="blue" stroke-dasharray="2 2"/><circle cx="4" cy="12" r="2" fill="rgba(173,216,230,0.7)" stroke="blue"/><circle cx="10" cy="12" r="2" fill="rgba(173,216,230,0.7)" stroke="blue"/></svg>');}
+        .icon-decision-maker { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 2 L2 8 L8 14 L14 8 Z" fill="lime" stroke="green" stroke-width="1"/><text x="8" y="10" font-size="6" fill="black" text-anchor="middle">Y/N</text></svg>');}
+        .icon-digital-lava-lamp { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="1" width="8" height="14" rx="2" fill="%23673AB7"/><ellipse cx="8" cy="5" rx="2" ry="3" fill="%23FF4081"/><ellipse cx="8" cy="11" rx="2.5" ry="2" fill="%2300BCD4"/></svg>');}
+        .icon-screen-doodler { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="white" stroke="black"/><path d="M3 12 L6 8 L9 10 L12 5" stroke="red" stroke-width="1.5" fill="none"/></svg>');}
+        .icon-motivational-poster { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="black"/><rect x="2" y="2" width="12" height="8" fill="teal"/><text x="8" y="13" font-size="3" fill="white" text-anchor="middle">BELIEVE</text></svg>');}
+        .icon-fake-bsod { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="blue"/><text x="1" y="6" font-size="3.5" fill="white" font-family="monospace">ERROR</text><text x="1" y="11" font-size="3.5" fill="white" font-family="monospace">0xDEADBEEF</text></svg>');}
+        .icon-haiku-generator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="%23E6EE9C"/><text x="4" y="7" font-size="3">Green grass sleeps</text><text x="4" y="10" font-size="3">Silent frog dreams now</text><text x="4" y="13" font-size="3">Moon watches.</text></svg>');}
+        .icon-progress-stealer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="6" width="12" height="4" rx="1" fill="%23CFD8DC"/><rect x="8" y="6.5" width="5.5" height="3" rx="0.5" fill="%23F44336"/></svg>');}
+        .icon-desktop-confetti { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="3" cy="3" r="1" fill="red"/><circle cx="5" cy="8" r="1" fill="blue"/><circle cx="8" cy="2" r="1" fill="yellow"/><circle cx="10" cy="10" r="1" fill="green"/><circle cx="13" cy="5" r="1" fill="purple"/></svg>');}
+        .icon-backwards-text-typer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="8" y="12" font-size="10" fill="%23FF9800" text-anchor="middle" transform="scale(-1,1) translate(-16,0)">abc</text></svg>');}
+        .icon-annoying-popups { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="8" height="6" fill="lightgrey" stroke="grey"/><rect x="5" y="5" width="8" height="6" fill="lightgrey" stroke="grey"/><rect x="8" y="8" width="8" height="6" fill="lightgrey" stroke="grey"/></svg>');}
+        .icon-philosophers-corner { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="%23D1C4E9"/><text x="8" y="11" font-size="10" fill="black" text-anchor="middle">?</text></svg>');}
+        .icon-emoji-story-teller { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="10">😀🚗💨😭</text></svg>');}
+        .icon-font-sizer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="8" font-size="6">A</text><text x="5" y="10" font-size="8">A</text><text x="10" y="12" font-size="10">A</text></svg>');}
+        .icon-simple-color-mixer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="4" height="12" fill="red"/><rect x="6" y="2" width="4" height="12" fill="green"/><rect x="10" y="2" width="4" height="12" fill="blue"/></svg>');}
+        .icon-desktop-fireplace { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="10" width="12" height="5" fill="brown"/><path d="M4 10 Q5 7 6 10 Q7 7 8 10 Q9 7 10 10 Q11 7 12 10" fill="orange"/><path d="M5 9 Q6 6 7 9 Q8 6 9 9 Q10 6 11 9" fill="yellow"/></svg>');}
+        .icon-folder { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M1,3 L1,13 L15,13 L15,5 L9,5 L7,3 Z" fill="%23FFEB3B" stroke="%23A1887F" stroke-width="1"/><path d="M0,2 L6,2 L8,4 L16,4 L16,14 L0,14 Z" fill="%23FFCA28" stroke="%23795548" stroke-width="0.5" transform="translate(0,0.5)"/></svg>');}
+        .icon-alert-box-fun { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="yellow" stroke="black"/><text x="8" y="12" font-size="10" text-anchor="middle">!</text></svg>');}
+        .icon-button-masher { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="5" width="5" height="5" fill="red"/><rect x="9" y="5" width="5" height="5" fill="blue"/></svg>');}
+        .icon-silly-name-gen { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="8">X Æ A-12</text></svg>');}
+        .icon-virtual-stress-ball { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="lightcoral" stroke="red"/></svg>');}
+        .icon-pointless-poll { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="4" width="5" height="8" fill="lightblue"/><rect x="9" y="2" width="5" height="10" fill="lightgreen"/></svg>');}
+        .icon-screen-cleaner-anim { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="lightgray"/><path d="M1 1 L8 8 L1 15" stroke="blue" stroke-width="2" fill="none"/></svg>');}
+        .icon-virtual-highfive { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 8 C2 4 5 2 8 5 C11 2 14 4 14 8 L12 14 L4 14Z" fill="orange" stroke="darkorange"/></svg>');}
+        .icon-random-animal-noise { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="2" y="12" font-size="10">哞?</text></svg>');}
+        .icon-digital-fidget-spinner { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2" fill="gray"/><circle cx="8" cy="3" r="2" fill="red"/><circle cx="3" cy="10" r="2" fill="blue"/><circle cx="13" cy="10" r="2" fill="green"/></svg>');}
+        .icon-complaint-box { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="darkred" stroke="black"/><line x1="5" y1="5" x2="11" y2="5" stroke="white"/><line x1="5" y1="8" x2="11" y2="8" stroke="white"/><line x1="5" y1="11" x2="8" y2="11" stroke="white"/></svg>');}
+        .icon-affirmation-generator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="lightgreen" stroke="green"/><text x="8" y="11" font-size="6" text-anchor="middle">You Got This!</text></svg>');}
+        .icon-virtual-cookie { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="sandybrown"/><circle cx="6" cy="6" r="1" fill="saddlebrown"/><circle cx="10" cy="7" r="0.8" fill="saddlebrown"/><circle cx="8" cy="10" r="1.2" fill="saddlebrown"/></svg>');}
+        .icon-excuse-generator { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="lightcoral" stroke="darkred"/><text x="8" y="11" font-size="6" text-anchor="middle">Dog ate it.</text></svg>');}
+        .icon-digital-snowglobe { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="7" r="5" fill="lightblue" stroke="blue"/><rect x="5" y="12" width="6" height="3" fill="brown"/><circle cx="7" cy="6" r="0.5" fill="white"/><circle cx="9" cy="8" r="0.5" fill="white"/><circle cx="6" cy="9" r="0.5" fill="white"/></svg>');}
+        .icon-random-word-assoc { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="8">A→B?</text></svg>');}
+        .icon-virtual-theremin { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="6" y="2" width="4" height="12" fill="silver"/><line x1="6" y1="8" x2="2" y2="4" stroke="gray"/><line x1="10" y1="8" x2="14" y2="4" stroke="gray"/></svg>');}
+        .icon-worry-stone { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><ellipse cx="8" cy="8" rx="6" ry="4" fill="slategray" stroke="darkslategray"/></svg>');}
+        .icon-compliment-sandwich { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="3" fill="burlywood"/><rect x="2" y="6" width="12" height="4" fill="lightcoral"/><rect x="2" y="11" width="12" height="3" fill="burlywood"/></svg>');}
+        .icon-joke-explainer { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="8">😂➜🧐</text></svg>');}
+        .icon-virtual-keyboard-cat { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="10" width="14" height="4" fill="gray"/><path d="M3 5 C1 7 1 10 3 10 S7 12 7 10 S5 3 3 5" fill="orange"/><circle cx="4" cy="7" r="0.5" fill="black"/></svg>');}
+        .icon-procrastination-helper { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><text x="1" y="12" font-size="10">Zzz...</text></svg>');}
+        .icon-existential-button { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="purple"/><text x="8" y="11" font-size="6" fill="white" text-anchor="middle">Why?</text></svg>');}
+        .icon-pet-name-gen { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm0 1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S6.5 4.83 6.5 4 7.17 2.5 8 2.5zm0 11c-.83 0-1.5-.67-1.5-1.5S7.17 10.5 8 10.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5-5.5c0 .48-.13.93-.36 1.33L13 10.5V11h-1.5v-1l-1.03-.72c-.3.2-.64.32-.97.32-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5c.33 0 .67.12.97.32L11.5 7V6.5H13v.5l-1.86.83c.23.4.36.85.36 1.33zM4.5 8c0-.83.67-1.5 1.5-1.5.33 0 .67.12.97.32L8.5 7V6.5H10v.5l-1.86.83c.23.4.36.85.36 1.33 0 .48-.13.93-.36 1.33L10 10.5V11H8.5v-1l-1.03-.72c-.3.2-.64.32-.97.32-.83 0-1.5-.67-1.5-1.5z" fill="%23795548" transform="scale(0.9) translate(1,1)"/><text x="7.5" y="11" font-size="7" fill="white" text-anchor="middle">?</text></svg>');}
+        .icon-bad-advice-gen { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1C5.24 1 3 3.24 3 6c0 2.25 1.25 4.38 3 5.47V13c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-1.53c1.75-1.09 3-3.22 3-5.47 0-2.76-2.24-5-5-5zm0 8c-.83 0-1.5-.67-1.5-1.5S7.17 6 8 6s1.5.67 1.5 1.5S8.83 9 8 9z" fill="%23FFEB3B"/><line x1="7" y1="3" x2="9" y2="5" stroke="black" stroke-width="1.5"/><line x1="9" y1="3" x2="7" y2="5" stroke="black" stroke-width="1.5"/><circle cx="8" cy="7.5" r="0.7" fill="black"/></svg>');}
+
+
+        /* Desktop Icons */
+        .desktop-icon {
+            width: 75px;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: 4px;
+            margin: 4px;
+            cursor: default;
+            float: left;
+            position: relative;
+        }
+
+        .desktop-icon.selected .icon-label {
+            background-color: #000080;
+            color: #ffffff;
+        }
+        .desktop-icon.selected .icon-image {
+             outline: 1px dotted #000000;
+        }
+
+        .icon-image {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .icon-label {
+            color: #ffffff;
+            font-size: 10px;
+            padding: 1px 2px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.7);
+            word-wrap: break-word;
+            width: 100%;
+            line-height: 1.1;
+            max-height: 22px;
+            overflow: hidden;
+        }
+
+        /* Window Styling */
+        .window {
+            position: absolute; background-color: #c0c0c0; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            display: none; min-width: 250px; min-height: 150px; padding: 3px;
+            resize: both; overflow: hidden;
+        }
+        .window.maximized {
+            top:0!important; left:0!important; width:100%!important; height:100%!important;
+            margin:0; padding:0; border:none; box-shadow:none; resize:none;
+        }
+        .window.maximized .window-title-bar { border-radius:0; }
+        .window.maximized .window-body { height:calc(100% - 20px); }
+
+        .window-title-bar {
+            background-color:#808080; color:#c0c0c0; padding:2px 3px; display:flex;
+            justify-content:space-between; align-items:center; cursor:default;
+            height:16px; margin-bottom:2px;
+        }
+        .window.active .window-title-bar { background-color:#000080; color:#ffffff; }
+        .window-title { font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-left:3px; }
+        .window-title-icon {
+            width:14px; height:14px; margin-right:3px; background-size:contain;
+            background-repeat:no-repeat; background-position:center; display:inline-block; vertical-align:middle;
+        }
+        .window-controls { display:flex; }
+        .window-controls button {
+            background-color:#c0c0c0; color:#000000; width:16px; height:14px; margin-left:1px; padding:0;
+            font-family:"Marlett","Webdings","Wingdings",sans-serif; font-size:10px; line-height:14px;
+            text-align:center; cursor:default; display:inline-flex; align-items:center; justify-content:center;
+            border-top:1px solid #ffffff; border-left:1px solid #ffffff;
+            border-bottom:1px solid #404040; border-right:1px solid #404040;
+        }
+        .window-controls button:active {
+            border-top:1px solid #404040; border-left:1px solid #404040;
+            border-bottom:1px solid #ffffff; border-right:1px solid #ffffff;
+        }
+        .window-controls .minimize-button::before { content:"0"; }
+        .window-controls .maximize-button::before { content:"1"; }
+        .window-controls .restore-button::before { content:"2"; }
+        .window-controls .close-button::before { content:"r"; }
+
+        .window-body {
+            background-color:#c0c0c0; height:calc(100% - 18px - 6px);
+            box-sizing:border-box; overflow:hidden;
+        }
+        .window-content {
+            background-color:#ffffff; height:100%; width:100%; box-sizing:border-box;
+            padding:5px; overflow:auto;
+        }
+
+        /* App Specific Styles */
+        .notepad-textarea { width:100%;height:100%;border:none;resize:none;font-family:"Lucida Console","Monaco",monospace;font-size:13px;outline:none;box-sizing:border-box;line-height:1.4;background-color:#ffffff;color:#000000;}
+        .app-button { background-color:#c0c0c0;color:#000000;padding:5px 10px;margin:5px;cursor:pointer;text-align:center;border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-bottom:1px solid #404040;border-right:1px solid #404040;}
+        .app-button:active {border-top:1px solid #404040;border-left:1px solid #404040;border-bottom:1px solid #ffffff;border-right:1px solid #ffffff;padding:6px 9px 4px 11px;}
+        .app-output { margin-top:10px;padding:8px;background-color:#ffffff;border:1px solid #808080;min-height:30px;white-space:pre-wrap; }
+        .pet-rock-area { text-align:center; } .pet-rock-image { font-size:48px;margin-bottom:10px; }
+        .mood-color-display { width:100px;height:100px;margin:10px auto;border:1px solid black; }
+        .progress-bar-container { width:100%;background-color:#e0e0e0;border:1px solid #a0a0a0;margin-top:10px; }
+        .progress-bar-fill { width:0%;height:20px;background-color:#000080;text-align:center;color:white;line-height:20px;}
+        .app-input { width:calc(100% - 12px);padding:5px;margin-bottom:5px;border:1px solid #808080; }
+        .bubblewrap-container button { width: 30px; height: 30px; margin: 3px; border-radius: 50%; background-color: lightblue; border: 1px solid blue;}
+        .bubblewrap-container button.popped { background-color: lightgray; opacity: 0.5;}
+        .doodle-canvas { border: 1px solid black; cursor: crosshair; }
+        .color-mixer-swatch { width: 100px; height: 50px; border: 1px solid black; margin: 5px auto; }
+        .color-mixer-controls input[type="range"] { width: 80%; margin: 2px auto; display: block;}
+
+
+        /* Context Menus */
+        .context-menu {position:absolute;background-color:#c0c0c0;border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-right:1px solid #404040;border-bottom:1px solid #404040;box-shadow:1px 1px 3px rgba(0,0,0,0.3);padding:2px;z-index:10001;display:none;min-width:180px;}
+        .context-menu-item {padding:5px 10px 5px 25px;cursor:default;white-space:nowrap;position:relative;}
+        .context-menu-item:hover {background-color:#000080;color:#ffffff;}
+        .context-menu-item a {text-decoration:none;color:inherit;display:block;}
+        .context-menu-separator {height:1px;background-color:#808080;margin:2px 0;border-bottom:1px solid #ffffff;}
+        .context-menu-item-icon {width:16px;height:16px;position:absolute;left:4px;top:50%;transform:translateY(-50%);background-size:contain;background-repeat:no-repeat;background-position:center;}
+        .icon-ctx-close { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10" stroke="black" stroke-width="2"/><line x1="2" y1="10" x2="10" y2="2" stroke="black" stroke-width="2"/></svg>');}
+        .icon-ctx-minimize { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="8" width="8" height="2" fill="black"/></svg>');}
+        .icon-ctx-maximize { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" stroke="black" stroke-width="1.5" fill="none"/></svg>');}
+        .icon-ctx-restore { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><rect x="4" y="2" width="6" height="6" stroke="black" stroke-width="1" fill="none"/><rect x="2" y="4" width="6" height="6" stroke="black" stroke-width="1.5" fill="%23c0c0c0"/></svg>');}
+
+        /* Shutdown Screen */
+        .shutdown-screen {
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background-color:#000000;
+            color:#FF8C00;
+            display:none;
+            justify-content:center; align-items:center; text-align:center;
+            z-index:20000;
+            font-family: "Arial", "Helvetica", sans-serif;
+            font-size: 28px;
+            line-height:1.5;
+        }
+        .shutdown-screen-content {
+            padding:30px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="desktop" id="desktop">
+        </div>
+
+    <div class="taskbar">
+        <div class="start-button win95-border-raised" id="startButton">
+            <div class="start-button-icon"></div>
+            Start
+        </div>
+        <div class="taskbar-separator"></div>
+        <div class="taskbar-apps" id="taskbarApps">
+            </div>
+        <div class="system-tray">
+            </div>
+        <div class="clock-area win95-border-inset">
+            <div class="volume-control icon-volume-on" id="volumeControl" title="Mute/Unmute Sounds"></div>
+            <span id="clockText">12:00 PM</span>
+        </div>
+    </div>
+
+    <div class="start-menu" id="startMenu">
+        <div class="start-menu-header">Pirillo<span>95</span></div>
+        <ul class="start-menu-items" id="startMenuItems">
+            <li class="start-menu-separator" id="startMenuSeparatorBeforeShutdown"></li>
+            <li class="start-menu-item" data-app-id="shutdown">
+                <div class="start-menu-item-icon icon-shutdown"></div>
+                Sh<u>u</u>t Down...
+            </li>
+        </ul>
+    </div>
+
+    <div class="context-menu" id="pirilloContextMenu">
+        <div class="context-menu-item"><a href="https://chrispirillo.bio.link/" target="_blank">Follow Chris Pirillo</a></div>
+        <div class="context-menu-item"><a href="https://pirillo.com/" target="_blank">Meet Chris Pirillo</a></div>
+        <div class="context-menu-item"><a href="https://pirillo.com/arcade/" target="_blank">Play with Chris Pirillo</a></div>
+        <div class="context-menu-item"><a href="https://chrispirillo.substack.com/" target="_blank">Read Chris Pirillo</a></div>
+        <div class="context-menu-item"><a href="https://discord.com/invite/XRBTM8sAMX" target="_blank">Chat with Chris Pirillo</a></div>
+    </div>
+
+    <div class="context-menu" id="taskbarAppContextMenu">
+        <div class="context-menu-item" data-action="restore"><span class="context-menu-item-icon icon-ctx-restore"></span>Restore</div>
+        <div class="context-menu-item" data-action="minimize"><span class="context-menu-item-icon icon-ctx-minimize"></span>Minimize</div>
+        <div class="context-menu-item" data-action="maximize"><span class="context-menu-item-icon icon-ctx-maximize"></span>Maximize</div>
+        <li class="context-menu-separator"></li>
+        <div class="context-menu-item" data-action="close"><span class="context-menu-item-icon icon-ctx-close"></span><u>C</u>lose</div>
+    </div>
+
+    <div class="shutdown-screen" id="shutdownScreen">
+        <div class="shutdown-screen-content">
+            <p>It is now safe to turn off your computer.</p>
+            <p style="font-size: 14px;">(Press Esc to return)</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const desktop = document.getElementById('desktop');
+            const startButton = document.getElementById('startButton');
+            const startMenu = document.getElementById('startMenu');
+            const startMenuItemsList = document.getElementById('startMenuItems');
+            const clockTextElement = document.getElementById('clockText');
+            const taskbarAppsContainer = document.getElementById('taskbarApps');
+            const pirilloContextMenu = document.getElementById('pirilloContextMenu');
+            const taskbarAppContextMenu = document.getElementById('taskbarAppContextMenu');
+            const shutdownScreen = document.getElementById('shutdownScreen');
+            const startMenuSeparatorBeforeShutdown = document.getElementById('startMenuSeparatorBeforeShutdown');
+            const volumeControl = document.getElementById('volumeControl');
+
+            // --- State Variables ---
+            let activeWindow = null;
+            let highestZIndex = 100;
+            const openWindows = {};
+            let appInstanceCounter = {};
+            let activeSubmenuTimer = null;
+            let currentlyHoveredSubmenu = null;
+
+            // --- Sound Synthesis (Tone.js) ---
+            let generalClickSound, openWindowSound, closeWindowSound, errorSoundEffect;
+            let soundsReady = false;
+            let isMuted = false;
+
+            async function initializeSounds() {
+                if (soundsReady || typeof Tone === 'undefined') return;
+                try {
+                    await Tone.start();
+
+                    generalClickSound = new Tone.MembraneSynth({
+                        pitchDecay: 0.005, octaves: 1, oscillator: { type: "sine" },
+                        envelope: { attack: 0.001, decay: 0.05, sustain: 0, release: 0.1 }
+                    }).toDestination();
+                    generalClickSound.volume.value = -20;
+
+                    openWindowSound = new Tone.Synth({
+                        oscillator: { type: "triangle8" },
+                        envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }
+                    }).toDestination();
+                    openWindowSound.volume.value = -12;
+
+                    closeWindowSound = new Tone.Synth({
+                        oscillator: { type: "sine" },
+                        envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }
+                    }).toDestination();
+                    closeWindowSound.volume.value = -12;
+
+                    errorSoundEffect = new Tone.NoiseSynth({
+                        noise: { type: "pink" },
+                        envelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.1 }
+                    }).toDestination();
+                    errorSoundEffect.volume.value = -15;
+
+                    soundsReady = true;
+                } catch (e) {
+                    console.warn("Tone.js sound initialization failed:", e);
+                    soundsReady = false;
+                }
+            }
+
+            function playSound(soundType) {
+                if (isMuted || !soundsReady) return;
+                try {
+                    if (soundType === 'click' && generalClickSound) generalClickSound.triggerAttackRelease("C2", "64n", Tone.now());
+                    else if (soundType === 'open' && openWindowSound) openWindowSound.triggerAttackRelease("C5", "16n", Tone.now());
+                    else if (soundType === 'close' && closeWindowSound) closeWindowSound.triggerAttackRelease("G4", "16n", Tone.now());
+                    else if (soundType === 'error' && errorSoundEffect) errorSoundEffect.triggerAttackRelease("8n", Tone.now());
+                } catch (e) {
+                    console.warn("Sound playback error:", e);
+                }
+            }
+
+            volumeControl.addEventListener('click', () => {
+                isMuted = !isMuted;
+                if (soundsReady && Tone.Destination) {
+                    Tone.Destination.mute = isMuted;
+                }
+                volumeControl.classList.toggle('icon-volume-on', !isMuted);
+                volumeControl.classList.toggle('icon-volume-off', isMuted);
+                if (!isMuted) playSound('click');
+            });
+
+
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                clockTextElement.textContent = `${hours}:${minutes} ${ampm}`;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            function closeAllSubmenus(exceptThisOne = null) {
+                document.querySelectorAll('.start-menu-submenu').forEach(submenu => {
+                    if (submenu !== exceptThisOne) {
+                        submenu.style.display = 'none';
+                        if (submenu.parentElement) {
+                            submenu.parentElement.classList.remove('hover-open');
+                        }
+                    }
+                });
+                if (exceptThisOne === null) {
+                    currentlyHoveredSubmenu = null;
+                }
+            }
+
+            function closeStartMenu() {
+                startMenu.style.display = 'none';
+                startButton.classList.remove('active', 'win95-border-inset');
+                startButton.classList.add('win95-border-raised');
+                closeAllSubmenus();
+            }
+
+
+            startButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                initializeSounds();
+                playSound('click');
+                const isMenuOpen = startMenu.style.display === 'block';
+
+                if (isMenuOpen) {
+                    closeStartMenu();
+                } else {
+                    closeAllContextMenus();
+                    startMenu.style.display = 'block';
+                }
+                startButton.classList.toggle('active', !isMenuOpen);
+                startButton.classList.toggle('win95-border-inset', !isMenuOpen);
+                startButton.classList.toggle('win95-border-raised', isMenuOpen);
+            });
+
+            function closeAllContextMenus() {
+                if (pirilloContextMenu.style.display === 'block') pirilloContextMenu.style.display = 'none';
+                if (taskbarAppContextMenu.style.display === 'block') taskbarAppContextMenu.style.display = 'none';
+            }
+
+            document.addEventListener('click', (event) => {
+                if (startMenu.style.display === 'block' && !startMenu.contains(event.target) && !startButton.contains(event.target)) {
+                   closeStartMenu();
+                }
+                if (pirilloContextMenu.style.display === 'block' && !pirilloContextMenu.contains(event.target)) {
+                    pirilloContextMenu.style.display = 'none';
+                }
+                if (taskbarAppContextMenu.style.display === 'block' && !taskbarAppContextMenu.contains(event.target)) {
+                    taskbarAppContextMenu.style.display = 'none';
+                }
+            });
+
+            function createDesktopIcon(appId, appConfig) {
+                const icon = document.createElement('div');
+                icon.className = 'desktop-icon';
+                icon.id = `desktop-icon-${appId}`;
+                icon.dataset.appId = appId;
+                icon.tabIndex = 0;
+
+                const img = document.createElement('div');
+                img.className = `icon-image ${appConfig.windowIconClass || appConfig.iconClass}`;
+                icon.appendChild(img);
+
+                const label = document.createElement('span');
+                label.className = 'icon-label';
+                label.textContent = appConfig.title;
+                icon.appendChild(label);
+
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    playSound('click');
+                    document.querySelectorAll('.desktop-icon.selected').forEach(i => i.classList.remove('selected'));
+                    icon.classList.add('selected');
+                });
+                icon.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    openApp(appId);
+                    icon.classList.remove('selected');
+                });
+                desktop.appendChild(icon);
+            }
+
+            /**
+             * Displays a context menu at the specified event coordinates or relative to a target element.
+             * Ensures the menu is always positioned above the taskbar.
+             * @param {HTMLElement} menuElement - The context menu element to display.
+             * @param {MouseEvent} event - The mouse event that triggered the context menu.
+             * @param {HTMLElement|null} [targetElement=null] - Optional target element for positioning (e.g., taskbar app button).
+             */
+            function showContextMenu(menuElement, event, targetElement = null) {
+                event.preventDefault();
+                event.stopPropagation();
+                playSound('click');
+
+                // Close other menus
+                closeStartMenu();
+                if (menuElement !== pirilloContextMenu) pirilloContextMenu.style.display = 'none';
+                if (menuElement !== taskbarAppContextMenu) taskbarAppContextMenu.style.display = 'none';
+
+                menuElement.style.display = 'block'; // Make it visible to calculate its dimensions
+                const menuHeight = menuElement.offsetHeight;
+                const menuWidth = menuElement.offsetWidth;
+                const taskbarHeight = 40; // Defined taskbar height
+                const viewportHeight = window.innerHeight;
+                const viewportWidth = window.innerWidth;
+                const margin = 5; // Small margin from screen edges or taskbar
+
+                let top, left;
+
+                if (menuElement === taskbarAppContextMenu && targetElement) {
+                    // For context menu on a taskbar item
+                    const targetRect = targetElement.getBoundingClientRect();
+                    // Position the menu so its bottom edge is just above the taskbar
+                    top = viewportHeight - taskbarHeight - menuHeight - margin;
+                    left = targetRect.left; // Align with the left of the taskbar button
+
+                    // Adjust if it goes off the right edge of the screen
+                    if (left + menuWidth > viewportWidth - margin) {
+                        left = viewportWidth - menuWidth - margin;
+                    }
+                    // Adjust if it goes off the left edge of the screen
+                    if (left < margin) {
+                        left = margin;
+                    }
+                } else {
+                    // For desktop context menu (pirilloContextMenu)
+                    top = event.clientY;
+                    left = event.clientX;
+
+                    // Ensure desktop context menu's bottom edge is above the taskbar
+                    if (top + menuHeight > viewportHeight - taskbarHeight - margin) {
+                        top = viewportHeight - taskbarHeight - menuHeight - margin;
+                    }
+                    // Adjust if it goes off the right edge of the screen
+                    if (left + menuWidth > viewportWidth - margin) {
+                        left = viewportWidth - menuWidth - margin;
+                    }
+                    // Adjust if it goes off the left edge of the screen
+                    if (left < margin) {
+                        left = margin;
+                    }
+                }
+
+                // Ensure menu doesn't go above the top of the viewport
+                if (top < margin) {
+                    top = margin;
+                }
+
+                menuElement.style.top = `${top}px`;
+                menuElement.style.left = `${left}px`;
+                menuElement.style.zIndex = highestZIndex + 50; // Ensure it's above other elements
+            }
+
+
+            desktop.addEventListener('contextmenu', (event) => {
+                showContextMenu(pirilloContextMenu, event);
+            });
+
+            taskbarAppContextMenu.addEventListener('click', (event) => {
+                const targetItem = event.target.closest('.context-menu-item');
+                if (targetItem && targetItem.dataset.action) {
+                    playSound('click');
+                    const action = targetItem.dataset.action;
+                    const instanceId = taskbarAppContextMenu.dataset.instanceId;
+                    if (action && instanceId && openWindows[instanceId]) {
+                        const windowState = openWindows[instanceId];
+                        switch (action) {
+                            case 'close': closeWindow(instanceId); break;
+                            case 'minimize': if (!windowState.minimized) toggleMinimizeWindow(instanceId); break;
+                            case 'maximize':
+                                if (!windowState.maximized) toggleMaximizeWindow(instanceId);
+                                break;
+                            case 'restore':
+                                if (windowState.maximized) toggleMaximizeWindow(instanceId);
+                                else if (windowState.minimized) toggleMinimizeWindow(instanceId);
+                                break;
+                        }
+                    }
+                }
+                taskbarAppContextMenu.style.display = 'none';
+            });
+
+            function createWindow(appId, appConfig) {
+                initializeSounds();
+                playSound('open');
+                let instanceId = appId;
+                let windowTitle = appConfig.title;
+
+                if (appConfig.allowMultiple) {
+                    appInstanceCounter[appId] = (appInstanceCounter[appId] || 0) + 1;
+                    instanceId = `${appId}_${appInstanceCounter[appId]}`;
+                    if (appInstanceCounter[appId] > 1 && appConfig.title.includes("Untitled")) {
+                         windowTitle = appConfig.title.replace("Untitled", `Untitled ${appInstanceCounter[appId]}`);
+                    } else if (appInstanceCounter[appId] > 1) {
+                        windowTitle = `${appConfig.title} (${appInstanceCounter[appId]})`;
+                    }
+                } else if (openWindows[instanceId]) {
+                     focusWindow(openWindows[instanceId].element);
+                     if(openWindows[instanceId].minimized) toggleMinimizeWindow(instanceId);
+                     return openWindows[instanceId].element;
+                }
+
+                const win = document.createElement('div');
+                win.className = 'window win95-border-raised';
+                win.id = `window-${instanceId}`;
+                win.style.zIndex = highestZIndex++;
+
+                const numOpen = Object.keys(openWindows).length;
+                win.style.left = `${Math.max(10, 50 + (numOpen % 10) * 20)}px`;
+                win.style.top = `${Math.max(10, 50 + (numOpen % 10) * 20)}px`;
+                if (appConfig.width) win.style.width = appConfig.width;
+                if (appConfig.height) win.style.height = appConfig.height;
+
+                const contentHtml = typeof appConfig.content === 'function' ? appConfig.content(instanceId) : appConfig.content;
+
+                win.innerHTML = `
+                    <div class="window-title-bar">
+                        <span class="window-title-icon-container">
+                            <span class="window-title-icon ${appConfig.windowIconClass || appConfig.iconClass || ''}"></span>
+                        </span>
+                        <span class="window-title">${windowTitle}</span>
+                        <div class="window-controls">
+                            <button class="minimize-button" title="Minimize" data-instance-id="${instanceId}"></button>
+                            <button class="maximize-button" title="Maximize" data-instance-id="${instanceId}"></button>
+                            <button class="close-button" title="Close" data-instance-id="${instanceId}"></button>
+                        </div>
+                    </div>
+                    <div class="window-body">
+                        <div class="window-content win95-border-inset">
+                            ${contentHtml}
+                        </div>
+                    </div>
+                `;
+                desktop.appendChild(win);
+                win.style.display = 'block';
+
+                const taskbarButton = addAppToTaskbar(instanceId, windowTitle, appConfig.windowIconClass || appConfig.iconClass || '');
+
+                openWindows[instanceId] = {
+                    element: win, title: windowTitle, minimized: false, maximized: false,
+                    originalRect: null, taskbarButton: taskbarButton, appId: appId
+                };
+
+                makeDraggable(win.querySelector('.window-title-bar'), win, instanceId);
+                addWindowControls(win, instanceId);
+
+                const windowContent = win.querySelector('.window-content');
+                if (windowContent) {
+                    windowContent.addEventListener('contextmenu', (event) => event.stopPropagation());
+                }
+                focusWindow(win);
+                if (appConfig.initScript && typeof appConfig.initScript === 'function') appConfig.initScript(instanceId);
+                updateTaskbarAppWidths();
+                return win;
+            }
+
+            function focusWindow(winElement) {
+                if (!winElement) return;
+                if (activeWindow && activeWindow !== winElement) {
+                    activeWindow.classList.remove('active');
+                    const activeInstanceId = activeWindow.id.replace('window-', '');
+                    if (openWindows[activeInstanceId] && openWindows[activeInstanceId].taskbarButton) {
+                        openWindows[activeInstanceId].taskbarButton.classList.remove('active', 'win95-border-inset');
+                        openWindows[activeInstanceId].taskbarButton.classList.add('win95-border-raised');
+                    }
+                }
+                winElement.style.zIndex = highestZIndex++;
+                winElement.classList.add('active');
+                activeWindow = winElement;
+                const instanceId = winElement.id.replace('window-', '');
+                if (openWindows[instanceId] && openWindows[instanceId].taskbarButton) {
+                    openWindows[instanceId].taskbarButton.classList.add('active', 'win95-border-inset');
+                    openWindows[instanceId].taskbarButton.classList.remove('win95-border-raised');
+                }
+                if (openWindows[instanceId] && openWindows[instanceId].minimized) {
+                    toggleMinimizeWindow(instanceId);
+                }
+            }
+
+            desktop.addEventListener('mousedown', (event) => {
+                if (event.target === desktop) {
+                    if (activeWindow) {
+                         activeWindow.classList.remove('active');
+                         const instanceId = activeWindow.id.replace('window-', '');
+                         if (openWindows[instanceId] && openWindows[instanceId].taskbarButton) {
+                            openWindows[instanceId].taskbarButton.classList.remove('active', 'win95-border-inset');
+                            openWindows[instanceId].taskbarButton.classList.add('win95-border-raised');
+                         }
+                         activeWindow = null;
+                    }
+                    document.querySelectorAll('.desktop-icon.selected').forEach(i => i.classList.remove('selected'));
+                }
+            });
+
+            function makeDraggable(titleBar, win, instanceId) {
+                let offsetX, offsetY, isDragging = false;
+                titleBar.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('button')) return;
+                    if (openWindows[instanceId] && openWindows[instanceId].maximized) return;
+                    isDragging = true;
+                    offsetX = e.clientX - win.offsetLeft;
+                    offsetY = e.clientY - win.offsetTop;
+                    focusWindow(win);
+                });
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    let newX = e.clientX - offsetX, newY = e.clientY - offsetY;
+                    const desktopRect = desktop.getBoundingClientRect();
+                    newX = Math.max(0, Math.min(newX, desktopRect.width - win.offsetWidth));
+                    newY = Math.max(0, Math.min(newY, desktopRect.height - win.offsetHeight));
+                    win.style.left = `${newX}px`; win.style.top = `${newY}px`;
+                });
+                document.addEventListener('mouseup', () => { if (isDragging) isDragging = false; });
+                titleBar.addEventListener('dblclick', (e) => {
+                    if (e.target.closest('button')) return;
+                    toggleMaximizeWindow(instanceId);
+                });
+            }
+
+            function toggleMinimizeWindow(instanceId) {
+                const state = openWindows[instanceId]; if (!state) return;
+                playSound(state.minimized ? 'open' : 'close');
+                const win = state.element;
+                state.minimized = !state.minimized;
+                win.style.display = state.minimized ? 'none' : 'block';
+
+                if (state.minimized) {
+                    state.taskbarButton.classList.remove('active', 'win95-border-inset');
+                    state.taskbarButton.classList.add('win95-border-raised');
+                    if (activeWindow === win) {
+                        activeWindow = null;
+                        const otherWindows = Object.values(openWindows).filter(w => w.element !== win && !w.minimized && w.element.style.display !== 'none');
+                        if (otherWindows.length > 0) {
+                            otherWindows.sort((a,b) => parseInt(b.element.style.zIndex) - parseInt(a.element.style.zIndex));
+                            focusWindow(otherWindows[0].element);
+                        }
+                    }
+                } else {
+                    focusWindow(win);
+                }
+            }
+
+            function toggleMaximizeWindow(instanceId) {
+                const state = openWindows[instanceId]; if (!state) return;
+                playSound('click');
+                const win = state.element;
+                const maximizeButton = win.querySelector('.maximize-button, .restore-button');
+                const taskbarCtxMaxItem = (taskbarAppContextMenu.dataset.instanceId === instanceId) ?
+                                       taskbarAppContextMenu.querySelector('[data-action="maximize"], [data-action="restore"]') : null;
+
+                if (state.maximized) {
+                    win.classList.remove('maximized'); win.classList.add('win95-border-raised');
+                    if (state.originalRect) {
+                        win.style.left = state.originalRect.left; win.style.top = state.originalRect.top;
+                        win.style.width = state.originalRect.width; win.style.height = state.originalRect.height;
+                    }
+                    maximizeButton.classList.remove('restore-button'); maximizeButton.classList.add('maximize-button');
+                    maximizeButton.title = "Maximize"; state.maximized = false;
+                    if (taskbarCtxMaxItem) {
+                        taskbarCtxMaxItem.dataset.action = 'maximize';
+                        taskbarCtxMaxItem.innerHTML = `<span class="context-menu-item-icon icon-ctx-maximize"></span>Maximize`;
+                    }
+                } else {
+                    state.originalRect = {
+                        left: win.style.left, top: win.style.top,
+                        width: win.style.width || win.offsetWidth + 'px', height: win.style.height || win.offsetHeight + 'px'
+                    };
+                    win.classList.add('maximized'); win.classList.remove('win95-border-raised');
+                    win.style.width = '100%';
+                    win.style.height = '100%';
+                    win.style.top = '0px'; win.style.left = '0px';
+                    maximizeButton.classList.remove('maximize-button'); maximizeButton.classList.add('restore-button');
+                    maximizeButton.title = "Restore"; state.maximized = true;
+                     if (taskbarCtxMaxItem) {
+                        taskbarCtxMaxItem.dataset.action = 'restore';
+                        taskbarCtxMaxItem.innerHTML = `<span class="context-menu-item-icon icon-ctx-restore"></span>Restore`;
+                    }
+                }
+                focusWindow(win);
+            }
+
+            function closeWindow(instanceId) {
+                const state = openWindows[instanceId]; if (!state) return;
+                playSound('close');
+                state.element.remove();
+                if (state.taskbarButton) state.taskbarButton.remove();
+
+                const originalAppId = state.appId;
+                delete openWindows[instanceId];
+
+                if (activeWindow === state.element) {
+                    activeWindow = null;
+                    const otherWindows = Object.values(openWindows).filter(w => !w.minimized && w.element.style.display !== 'none');
+                    if (otherWindows.length > 0) {
+                        otherWindows.sort((a,b) => parseInt(b.element.style.zIndex) - parseInt(a.element.style.zIndex));
+                        focusWindow(otherWindows[0].element);
+                    }
+                }
+                if (appInstanceCounter[originalAppId] && applications[originalAppId].allowMultiple) {
+                    const stillOpenInstances = Object.values(openWindows).some(w => w.appId === originalAppId);
+                    if (!stillOpenInstances) {
+                        appInstanceCounter[originalAppId] = 0;
+                    }
+                }
+                updateTaskbarAppWidths();
+            }
+
+            function addWindowControls(win, instanceId) {
+                const minBtn = win.querySelector('.minimize-button');
+                const maxBtn = win.querySelector('.maximize-button, .restore-button');
+                const closeBtn = win.querySelector('.close-button');
+
+                const controls = [minBtn, maxBtn, closeBtn];
+                controls.forEach(btn => {
+                    if (btn) {
+                        btn.addEventListener('mousedown', (e) => { e.stopPropagation(); playSound('click'); });
+                    }
+                });
+                if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMinimizeWindow(instanceId); });
+                if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMaximizeWindow(instanceId); });
+                if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(instanceId); });
+
+                win.addEventListener('mousedown', (e) => {
+                    if (!e.target.closest('.window-controls button')) {
+                        focusWindow(win);
+                    }
+                }, true);
+            }
+
+            function addAppToTaskbar(instanceId, title, iconClass) {
+                const taskbarButton = document.createElement('div');
+                taskbarButton.className = 'taskbar-app win95-border-raised';
+                taskbarButton.dataset.instanceId = instanceId;
+                taskbarButton.innerHTML = `<span class="taskbar-app-icon ${iconClass}"></span><span>${title}</span>`;
+
+                taskbarButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); playSound('click');
+                    const state = openWindows[instanceId]; if (!state) return;
+
+                    if (activeWindow === state.element && !state.minimized) {
+                        toggleMinimizeWindow(instanceId);
+                    } else {
+                        if(state.minimized) {
+                            toggleMinimizeWindow(instanceId);
+                        } else {
+                            focusWindow(state.element);
+                        }
+                    }
+                });
+
+                taskbarButton.addEventListener('contextmenu', (event) => {
+                    event.stopPropagation();
+                    const state = openWindows[instanceId]; if (!state) return;
+
+                    taskbarAppContextMenu.dataset.instanceId = instanceId;
+                    const maxItem = taskbarAppContextMenu.querySelector('[data-action="maximize"], [data-action="restore"]');
+                    const minItem = taskbarAppContextMenu.querySelector('[data-action="minimize"]');
+
+                    if (state.maximized) {
+                        maxItem.innerHTML = `<span class="context-menu-item-icon icon-ctx-restore"></span>Restore`;
+                        maxItem.dataset.action = "restore";
+                    } else {
+                        maxItem.innerHTML = `<span class="context-menu-item-icon icon-ctx-maximize"></span>Maximize`;
+                        maxItem.dataset.action = "maximize";
+                    }
+
+                    minItem.style.color = state.minimized ? '#808080' : 'black';
+                    minItem.style.pointerEvents = state.minimized ? 'none' : 'auto';
+
+                    if(state.minimized) {
+                        maxItem.innerHTML = `<span class="context-menu-item-icon icon-ctx-restore"></span>Restore`;
+                        maxItem.dataset.action = "restore";
+                    }
+
+                    showContextMenu(taskbarAppContextMenu, event, taskbarButton);
+                });
+                taskbarAppsContainer.appendChild(taskbarButton);
+                return taskbarButton;
+            }
+
+            function updateTaskbarAppWidths() {
+                const buttons = Array.from(taskbarAppsContainer.children).filter(el => el.classList.contains('taskbar-app'));
+                const numButtons = buttons.length;
+                if (numButtons === 0) return;
+
+                const containerWidth = taskbarAppsContainer.offsetWidth;
+                const idealButtonWidth = 160;
+                const minButtonWidth = 60;
+                const buttonMargin = 2;
+
+                let totalIdealWidth = numButtons * idealButtonWidth + (numButtons -1) * buttonMargin;
+
+                if (totalIdealWidth > containerWidth) {
+                    let availableWidthForButtons = containerWidth - ((numButtons - 1) * buttonMargin);
+                    let newWidth = Math.max(minButtonWidth, Math.floor(availableWidthForButtons / numButtons));
+                    buttons.forEach(btn => {
+                        btn.style.flexBasis = `${newWidth}px`;
+                        btn.style.minWidth = `${newWidth}px`;
+                        btn.style.maxWidth = `${newWidth}px`;
+                    });
+                } else {
+                    buttons.forEach(btn => {
+                        btn.style.flexBasis = `${idealButtonWidth}px`;
+                        btn.style.minWidth = '100px';
+                        btn.style.maxWidth = `${idealButtonWidth}px`;
+                    });
+                }
+            }
+            window.addEventListener('resize', updateTaskbarAppWidths);
+
+
+            // --- Shutdown Logic ---
+            function activateShutdownScreen() {
+                if (shutdownScreen) {
+                    playSound('close');
+                    // Close all open windows gracefully
+                    Object.keys(openWindows).forEach(instanceId => {
+                        // Check if closeWindow function exists and is callable
+                        if (typeof closeWindow === 'function') {
+                            closeWindow(instanceId);
+                        } else if (openWindows[instanceId] && openWindows[instanceId].element) {
+                            // Fallback: just remove element and taskbar button if closeWindow is not available
+                            openWindows[instanceId].element.remove();
+                            if (openWindows[instanceId].taskbarButton) {
+                                openWindows[instanceId].taskbarButton.remove();
+                            }
+                            delete openWindows[instanceId];
+                        }
+                    });
+                    updateTaskbarAppWidths(); // Update taskbar after closing windows
+
+                    shutdownScreen.style.display = 'flex';
+                    document.addEventListener('keydown', handleShutdownEscape);
+                } else {
+                    console.error("Shutdown screen element not found!");
+                }
+            }
+            function deactivateShutdownScreen() {
+                 if (shutdownScreen) {
+                    playSound('open');
+                    shutdownScreen.style.display = 'none';
+                    document.removeEventListener('keydown', handleShutdownEscape);
+                }
+            }
+            function handleShutdownEscape(event) {
+                if (event.key === 'Escape') {
+                    deactivateShutdownScreen();
+                }
+            }
+
+            // --- Application Definitions ---
+            const applications = {
+                // Category: Utilities (of a sort)
+                notepadApp: {
+                    title: "Notepad", category: "Utilities", content: () => `<textarea class="notepad-textarea" spellcheck="false"></textarea>`,
+                    iconClass: "icon-notepad", windowIconClass: "icon-start-notepad",
+                    allowMultiple: true, width: "450px", height: "350px"
+                },
+                clickCounterApp: {
+                    title: "Click Counter", category: "Utilities", iconClass: "icon-click-counter", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="clickCountBtn_${id}" class="app-button" style="padding:10px 20px;font-size:16px;">Click Me!</button><div id="clickCountDisplay_${id}" class="app-output" style="font-size:20px;margin-top:15px;">Clicks: 0</div></div>`,
+                    initScript: (id) => { let c=0; document.getElementById(`clickCountBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`clickCountDisplay_${id}`).textContent = `Clicks: ${++c}`}; }
+                },
+                randomNumberApp: {
+                    title: "Random Number", category: "Utilities", iconClass: "icon-random-number", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="randBtn_${id}" class="app-button">Generate (1-100)</button><div id="randOut_${id}" class="app-output" style="font-size:24px;">?</div></div>`,
+                    initScript: (id) => {document.getElementById(`randBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`randOut_${id}`).textContent = Math.floor(Math.random()*100)+1;}}
+                },
+                diceRollerApp: {
+                    title: "Dice Roller", category: "Utilities", iconClass: "icon-dice-roller", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="diceBtn_${id}" class="app-button">Roll Dice (2D6)</button><div id="diceOut_${id}" class="app-output" style="font-size:24px;">🎲🎲</div></div>`,
+                    initScript: (id) => {document.getElementById(`diceBtn_${id}`).onclick = () => {playSound('click'); const d1=Math.floor(Math.random()*6)+1,d2=Math.floor(Math.random()*6)+1; document.getElementById(`diceOut_${id}`).textContent = `${d1} + ${d2} = ${d1+d2}`;};}
+                },
+                coinFlipperApp: {
+                    title: "Coin Flipper", category: "Utilities", iconClass: "icon-coin-flipper", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="coinBtn_${id}" class="app-button">Flip Coin</button><div id="coinOut_${id}" class="app-output" style="font-size:20px;">🪙</div></div>`,
+                    initScript: (id) => {document.getElementById(`coinBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`coinOut_${id}`).textContent = Math.random()<0.5?"Heads!":"Tails!";}}
+                },
+                 isItFridayApp: {
+                    title: "Is It Friday?", category: "Utilities", iconClass: "icon-is-it-friday", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:30px;"><button id="fridayBtn_${id}" class="app-button">Check Friday</button><div id="fridayOut_${id}" class="app-output" style="font-size:20px;">Maybe?</div></div>`,
+                    initScript: (id) => {document.getElementById(`fridayBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`fridayOut_${id}`).textContent = new Date().getDay()===5?"YES! 🎉":"Nope. 😥";}}
+                },
+                fakePasswordStrengthApp: {
+                    title: "Password Check", category: "Utilities", iconClass: "icon-fake-password", allowMultiple: true, width: "380px", height: "220px",
+                    content: (id) => `<div><input type="text" id="fakePassInput_${id}" class="app-input win95-border-inset" placeholder="Enter 'password'..."><button id="passBtn_${id}" class="app-button">Check Strength</button><div id="passOut_${id}" class="app-output">Strength: ???</div></div>`,
+                    initScript: (id) => {document.getElementById(`passBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`passOut_${id}`).textContent = Math.random()<0.5?"Strength: SUPER STRONG! 💪":"Strength: Very Weak. Try 'password123'."; document.getElementById(`fakePassInput_${id}`).value='';}}
+                },
+                decisionMakerApp: {
+                    title: "Decision Maker", category: "Utilities", iconClass: "icon-decision-maker", allowMultiple: true, width: "350px", height: "220px",
+                    content: (id) => `<div style="text-align:center;"><input type="text" id="decisionQ_${id}" class="app-input win95-border-inset" placeholder="Your yes/no question..."><button id="decisionBtn_${id}" class="app-button">Decide!</button><div id="decisionOut_${id}" class="app-output" style="font-size:18px;font-weight:bold;">Ask something!</div></div>`,
+                    initScript: (id) => {const ans = ["Yes!", "No.", "Maybe...", "Definitely Not.", "Signs point to yes."]; document.getElementById(`decisionBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`decisionOut_${id}`).textContent = document.getElementById(`decisionQ_${id}`).value ? ans[Math.floor(Math.random()*ans.length)] : "Ask something first!"; document.getElementById(`decisionQ_${id}`).value = '';};}
+                },
+                alertBoxFunApp: {
+                    title: "Alert Box Fun", category: "Utilities", iconClass: "icon-alert-box-fun", allowMultiple: true, width: "300px", height: "180px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><p>Click for a 'surprise'!</p><button id="alertFunBtn_${id}" class="app-button">Surprise Me!</button></div>`,
+                    initScript: (id) => { const msgs = ["You clicked the button!", "Still here?", "This is fun, right?", "No actual alert, sorry!"]; document.getElementById(`alertFunBtn_${id}`).onclick = () => {playSound('click'); alert(msgs[Math.floor(Math.random()*msgs.length)]);};} // Note: alert() is used here as per original code.
+                },
+                buttonMasherApp: {
+                    title: "Button Masher", category: "Utilities", iconClass: "icon-button-masher", allowMultiple: true, width: "350px", height: "250px",
+                    content: (id) => `<div style="text-align:center;"><p>Mash the buttons! Score: <span id="mashScore_${id}">0</span></p><button class="mashMe app-button" style="background:red;color:white;">Mash Red</button><button class="mashMe app-button" style="background:blue;color:white;">Mash Blue</button><button class="mashMe app-button" style="background:green;color:white;">Mash Green</button></div>`,
+                    initScript: (id) => {let s=0;const sd=document.getElementById(`mashScore_${id}`);document.querySelectorAll(`#window-${id} .mashMe`).forEach(b=>b.onclick=()=>{playSound('click');sd.textContent=++s;});}
+                },
+
+                // Category: Creative Corner
+                moodColorApp: {
+                    title: "Mood Color", category: "Creative Corner", iconClass: "icon-mood-color", allowMultiple: true, width: "350px", height: "280px",
+                    content: (id) => `<div style="text-align:center;"><div id="moodColorDisplay_${id}" class="mood-color-display win95-border-inset" style="background-color:yellow;"></div><button data-color="yellow" class="moodBtn app-button">Happy</button><button data-color="blue" class="moodBtn app-button">Sad</button><button data-color="red" class="moodBtn app-button">Angry</button><button data-color="green" class="moodBtn app-button">Chill</button></div>`,
+                    initScript: (id) => {const d=document.getElementById(`moodColorDisplay_${id}`);document.querySelectorAll(`#window-${id} .moodBtn`).forEach(b=>b.onclick=()=>{playSound('click');d.style.backgroundColor=b.dataset.color});}
+                },
+                asciiArtViewerApp: {
+                    title: "ASCII Art", category: "Creative Corner", iconClass: "icon-ascii-art", allowMultiple: true, width: "350px", height: "280px",
+                    content: (id) => `<div style="text-align:center;"><button id="asciiBtn_${id}" class="app-button">Show Art</button><pre id="asciiOut_${id}" class="app-output" style="font-family:monospace;font-size:10px;min-height:100px;">:-)</pre></div>`,
+                    initScript: (id) => {const art=["  O\n /|\\\n / \\\n","{\\_/}\n(^_^)\n(> <)","  /\\_/\\\n ( o.o )\n  > ^ <"," .-.\n(o.o)\n| O \\\n \\   \\\n  `~~~'\n  Cat"]; document.getElementById(`asciiBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`asciiOut_${id}`).textContent = art[Math.floor(Math.random()*art.length)];}}
+                },
+                simpleColorPickerApp: {
+                    title: "Simple Color", category: "Creative Corner", iconClass: "icon-simple-color-picker", allowMultiple: true, width: "300px", height: "250px",
+                    content: (id) => `<div style="text-align:center;"><div id="colorBox_${id}" style="width:100px;height:100px;border:1px solid;margin:10px auto;"></div><button id="colorBtn_${id}" class="app-button">Random Color</button><div id="colorHex_${id}" class="app-output">#FFFFFF</div></div>`,
+                    initScript: (id) => {const cb=document.getElementById(`colorBox_${id}`),ch=document.getElementById(`colorHex_${id}`); function rc(){const r=()=>Math.floor(Math.random()*256).toString(16).padStart(2,'0');const h=`#${r()}${r()}${r()}`;cb.style.backgroundColor=h;ch.textContent=h;} document.getElementById(`colorBtn_${id}`).onclick=()=>{playSound('click');rc();};rc();}
+                },
+                zenGardenApp: {
+                    title: "Zen Garden", category: "Creative Corner", iconClass: "icon-zen-garden", allowMultiple: true, width: "350px", height: "280px",
+                    content: () => `<div style="width:100%;height:100%;background:#F0F4C3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid #A1887F;"><svg width="200" height="150" viewBox="0 0 100 75"><path d="M10 70 Q20 60 30 70 T50 70 T70 70 T90 70 M15 55 Q25 45 35 55 T55 55 T75 55 M20 40 Q30 30 40 40 T60 40" stroke="#A1887F" stroke-width="2" fill="none"/><circle cx="80" cy="20" r="10" fill="#D4E157"/><rect x="75" y="15" width="10" height="10" fill="#8BC34A" transform="rotate(45 80 20)"/></svg><p style="color:#795548;margin-top:10px;">Find your inner peace... or just stare.</p></div>`
+                },
+                digitalLavaLampApp: {
+                    title: "Digital Lava Lamp", category: "Creative Corner", iconClass: "icon-digital-lava-lamp", allowMultiple: true, width: "250px", height: "350px",
+                    content: () => `<style>@keyframes lava-rise{0%{transform:translateY(20px) scale(1);} 50%{transform:translateY(-20px) scale(1.2);} 100%{transform:translateY(20px) scale(1);}}.lava-blob{position:absolute;border-radius:50%;animation-timing-function:ease-in-out;animation-iteration-count:infinite;}</style><div style="width:100%;height:100%;background:linear-gradient(to bottom, #3030A0, #101050);position:relative;overflow:hidden;"><div class="lava-blob" style="width:50px;height:70px;background:rgba(255,0,100,0.7);left:30%;bottom:10px;animation-name:lava-rise;animation-duration:10s;"></div><div class="lava-blob" style="width:40px;height:60px;background:rgba(0,255,200,0.7);left:60%;bottom:50px;animation-name:lava-rise;animation-duration:12s;animation-delay:-3s;"></div><div class="lava-blob" style="width:60px;height:80px;background:rgba(255,165,0,0.7);left:45%;bottom:20px;animation-name:lava-rise;animation-duration:8s;animation-delay:-5s;"></div></div>`
+                },
+                screenDoodlerApp: {
+                    title: "Screen Doodler", category: "Creative Corner", iconClass: "icon-screen-doodler", allowMultiple: true, width: "400px", height: "350px",
+                    content: (id) => `<div style="text-align:center;"><canvas id="doodleCanvas_${id}" class="doodle-canvas" width="360" height="260"></canvas><br><button id="clearDoodle_${id}" class="app-button">Clear</button> Color: <input type="color" id="doodleColor_${id}" value="#000000"></div>`,
+                    initScript: (id) => {const c=document.getElementById(`doodleCanvas_${id}`),x=c.getContext('2d');let p=false; x.lineWidth=2;x.lineCap='round'; document.getElementById(`doodleColor_${id}`).onchange=(e)=>x.strokeStyle=e.target.value; c.onmousedown=(e)=>{p=true;x.beginPath();x.moveTo(e.offsetX,e.offsetY);};c.onmousemove=(e)=>{if(p){x.lineTo(e.offsetX,e.offsetY);x.stroke();}};c.onmouseup=()=>p=false;c.onmouseleave=()=>p=false;document.getElementById(`clearDoodle_${id}`).onclick=()=>{playSound('click');x.clearRect(0,0,c.width,c.height)};}
+                },
+                 desktopFireplaceApp: {
+                    title: "Desktop Fireplace", category: "Creative Corner", iconClass: "icon-desktop-fireplace", allowMultiple: true, width: "300px", height: "250px",
+                    content: () => `<style>@keyframes flicker{0%,100%{box-shadow:0 0 5px #FFC107,0 0 10px #FF9800,0 0 15px #FF5722;}50%{box-shadow:0 0 10px #FFEB3B,0 0 20px #FFC107,0 0 30px #FF9800;}}.fire{width:80px;height:120px;background:radial-gradient(ellipse at bottom, #FF5722 20%, #FF9800 50%, #FFC107 80%, transparent 100%);border-radius:50% 50% 20% 20% / 60% 60% 40% 40%;margin:auto;position:relative;top:30px;animation:flicker 0.2s infinite alternate;}</style><div style="width:100%;height:100%;background:#5D4037;display:flex;align-items:center;justify-content:center;border:5px solid #3E2723;"><div class="fire"></div></div>`
+                },
+                fontSizerApp: {
+                    title: "Font Sizer", category: "Creative Corner", iconClass: "icon-font-sizer", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><input type="text" id="fontInput_${id}" class="app-input win95-border-inset" value="Hello Pirillo!"><div id="fontOutput_${id}" style="font-size:16px;text-align:center;margin:10px;padding:10px;border:1px solid #ccc;">Hello Pirillo!</div><button id="fontSmaller_${id}" class="app-button">-</button><button id="fontBigger_${id}" class="app-button">+</button></div>`,
+                    initScript: (id) => {let s=16;const i=document.getElementById(`fontInput_${id}`),o=document.getElementById(`fontOutput_${id}`);function u(){o.textContent=i.value;o.style.fontSize=`${s}px`;}i.oninput=u;document.getElementById(`fontSmaller_${id}`).onclick=()=>{playSound('click');s=Math.max(8,s-2);u();};document.getElementById(`fontBigger_${id}`).onclick=()=>{playSound('click');s=Math.min(72,s+2);u();};}
+                },
+                simpleColorMixerApp: {
+                    title: "Color Mixer", category: "Creative Corner", iconClass: "icon-simple-color-mixer", allowMultiple: true, width: "350px", height: "300px",
+                    content: (id) => `<div style="text-align:center;"><div id="colorMixSwatch_${id}" class="color-mixer-swatch"></div><div class="color-mixer-controls">R: <input type="range" id="redRange_${id}" min="0" max="255" value="128"><br>G: <input type="range" id="greenRange_${id}" min="0" max="255" value="128"><br>B: <input type="range" id="blueRange_${id}" min="0" max="255" value="128"></div><div id="colorMixHex_${id}" class="app-output">#808080</div></div>`,
+                    initScript: (id) => {const r=document.getElementById(`redRange_${id}`),g=document.getElementById(`greenRange_${id}`),b=document.getElementById(`blueRange_${id}`),s=document.getElementById(`colorMixSwatch_${id}`),h=document.getElementById(`colorMixHex_${id}`);function um(){const rv=parseInt(r.value),gv=parseInt(g.value),bv=parseInt(b.value);const hx=`#${rv.toString(16).padStart(2,'0')}${gv.toString(16).padStart(2,'0')}${bv.toString(16).padStart(2,'0')}`;s.style.backgroundColor=hx;h.textContent=hx;}r.oninput=um;g.oninput=um;b.oninput=um;um();}
+                },
+                emojiStoryTellerApp: {
+                    title: "Emoji Story", category: "Creative Corner", iconClass: "icon-emoji-story-teller", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="emojiStoryBtn_${id}" class="app-button">Tell Emoji Story</button><div id="emojiStoryOut_${id}" class="app-output" style="font-size:24px;">😀❓</div></div>`,
+                    initScript: (id) => {const es=[["🧑","➡️","🌲","🌲","เจอ","👻","➡️","🏃","💨","🏠","😴"],["☀️","☕","💻","💡","🤯","🎉","🍕","😴"],["🚀","🪐","👽","🤝","🌍","🥳"]]; document.getElementById(`emojiStoryBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`emojiStoryOut_${id}`).textContent = es[Math.floor(Math.random()*es.length)].join('');};}
+                },
+                haikuGeneratorApp: {
+                    title: "Haiku Generator", category: "Creative Corner", iconClass: "icon-haiku-generator", allowMultiple: true, width: "380px", height: "240px",
+                    content: (id) => `<div style="text-align:center;"><button id="haikuBtn_${id}" class="app-button">Generate Haiku</button><div id="haikuOut_${id}" class="app-output" style="min-height:70px;white-space:pre;">Click for a poem...</div></div>`,
+                    initScript: (id) => {const l1=["Green frog sits","Old silent pond","Winter wind blows"],l2=["A sudden splash now","The sound of water","Leaves are falling down"],l3=["The old pond awaits","A leaf floats gently","Autumn evening"]; document.getElementById(`haikuBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`haikuOut_${id}`).textContent = `${l1[Math.floor(Math.random()*l1.length)]}\n${l2[Math.floor(Math.random()*l2.length)]}\n${l3[Math.floor(Math.random()*l3.length)]}`;};}
+                },
+                 sillyNameGeneratorApp: {
+                    title: "Silly Name Gen", category: "Creative Corner", iconClass: "icon-silly-name-gen", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="sillyNameBtn_${id}" class="app-button">Generate Silly Name</button><div id="sillyNameOut_${id}" class="app-output">Baron Von Floofington</div></div>`,
+                    initScript: (id) => {const p1=["Captain","Baron","Professor","Sir","Madam"],p2=["Snuggle","Wiggle","Giggle","Fuzzy","Sparkle"],p3=["Pants","Bottom","Muffin","Noodle","Toes"];document.getElementById(`sillyNameBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`sillyNameOut_${id}`).textContent=`${p1[Math.floor(Math.random()*p1.length)]} ${p2[Math.floor(Math.random()*p2.length)]}${p3[Math.floor(Math.random()*p3.length)]}`;};}
+                },
+                randomAnimalNoiseApp: {
+                    title: "Animal Noises", category: "Creative Corner", iconClass: "icon-random-animal-noise", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="animalNoiseBtn_${id}" class="app-button">Make Animal Noise!</button><div id="animalNoiseOut_${id}" class="app-output" style="font-size:24px;">?</div></div>`,
+                    initScript: (id) => {const n=["Moo!","Oink!","Baa!","Woof!","Meow!","Quack!"];document.getElementById(`animalNoiseBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`animalNoiseOut_${id}`).textContent=n[Math.floor(Math.random()*n.length)];};}
+                },
+
+                // Category: Textual Torture
+                textShufflerApp: {
+                    title: "Text Shuffler", category: "Textual Torture", iconClass: "icon-text-shuffler", allowMultiple: true, width: "400px", height: "230px",
+                    content: (id) => `<div><input type="text" id="shufflerInput_${id}" class="app-input win95-border-inset" placeholder="Enter text to shuffle..."><button id="shufflerBtn_${id}" class="app-button">Shuffle It!</button><div id="shufflerOutput_${id}" class="app-output" style="min-height:40px;font-family:monospace;">Shuffled text here.</div></div>`,
+                    initScript: (id) => {document.getElementById(`shufflerBtn_${id}`).onclick = () => {playSound('click'); const t=document.getElementById(`shufflerInput_${id}`).value; document.getElementById(`shufflerOutput_${id}`).textContent = t.split('').sort(()=>0.5-Math.random()).join('');};}
+                },
+                textReverserApp: {
+                    title: "Text Reverser", category: "Textual Torture", iconClass: "icon-text-reverser", allowMultiple: true, width: "400px", height: "230px",
+                    content: (id) => `<div><input id="revIn_${id}" class="app-input win95-border-inset" placeholder="Enter text..."><button id="revBtn_${id}" class="app-button">Reverse</button><div id="revOut_${id}" class="app-output">...txet sdrawkcaB</div></div>`,
+                    initScript: (id) => {document.getElementById(`revBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`revOut_${id}`).textContent = document.getElementById(`revIn_${id}`).value.split('').reverse().join('');}}
+                },
+                wordScramblerApp: {
+                    title: "Word Scrambler", category: "Textual Torture", iconClass: "icon-word-scrambler", allowMultiple: true, width: "400px", height: "230px",
+                    content: (id) => `<div><input id="scramIn_${id}" class="app-input win95-border-inset" placeholder="Enter a word..."><button id="scramBtn_${id}" class="app-button">Scramble</button><div id="scramOut_${id}" class="app-output">...drow delbmarcS</div></div>`,
+                    initScript: (id) => {document.getElementById(`scramBtn_${id}`).onclick = () => {playSound('click'); const t=document.getElementById(`scramIn_${id}`).value; if(t.includes(' ')){document.getElementById(`scramOut_${id}`).textContent="One word only!"; return;} document.getElementById(`scramOut_${id}`).textContent = t.length>2?t[0]+t.substring(1,t.length-1).split('').sort(()=>0.5-Math.random()).join('')+t[t.length-1]:t;};}
+                },
+                pirateSpeakApp: {
+                    title: "Pirate Speak", category: "Textual Torture", iconClass: "icon-pirate-speak", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><textarea id="pirateIn_${id}" class="app-input win95-border-inset" style="height:60px;" placeholder="Enter yer words..."></textarea><button id="pirateBtn_${id}" class="app-button">Translate, Matey!</button><div id="pirateOut_${id}" class="app-output" style="min-height:50px;">Arr!</div></div>`,
+                    initScript: (id) => {document.getElementById(`pirateBtn_${id}`).onclick = () => {playSound('click'); let t=document.getElementById(`pirateIn_${id}`).value; t=t.replace(/you /gi,"ye ").replace(/my /gi,"me ").replace(/ is /gi," be ").replace(/are /gi," be ").replace(/friend/gi,"matey").replace(/hello/gi,"ahoy").replace(/the /gi,"th' "); document.getElementById(`pirateOut_${id}`).textContent = t + " Arr!";};}
+                },
+                badTranslatorApp: {
+                    title: "Bad Translator", category: "Textual Torture", iconClass: "icon-bad-translator", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><textarea id="badTransIn_${id}" class="app-input win95-border-inset" style="height:60px;" placeholder="Enter text for 'translation'..."></textarea><button id="badTransBtn_${id}" class="app-button">Translate Badly</button><div id="badTransOut_${id}" class="app-output" style="min-height:50px;">Gibberish awaits!</div></div>`,
+                    initScript: (id) => {document.getElementById(`badTransBtn_${id}`).onclick = () => {playSound('click'); let t=document.getElementById(`badTransIn_${id}`).value; const g="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "; const r=Array.from(t).map(c=>g.includes(c)?g[Math.floor(Math.random()*g.length)]:' ').join(''); document.getElementById(`badTransOut_${id}`).textContent = r;};}
+                },
+                backwardsTextTyperApp: {
+                    title: "Backwards Typer", category: "Textual Torture", iconClass: "icon-backwards-text-typer", allowMultiple: true, width: "400px", height: "230px",
+                    content: (id) => `<div><input type="text" id="bwdInput_${id}" class="app-input win95-border-inset" placeholder="Type forwards..."><div id="bwdOutput_${id}" class="app-output" style="min-height:40px;text-align:right;">...sdrawkcab sepyT</div></div>`,
+                    initScript: (id) => {document.getElementById(`bwdInput_${id}`).oninput = (e) => document.getElementById(`bwdOutput_${id}`).textContent = e.target.value.split('').reverse().join('');}
+                },
+                randomWordAssocApp: {
+                    title: "Word Association", category: "Textual Torture", iconClass: "icon-random-word-assoc", allowMultiple: true, width: "380px", height: "220px",
+                    content: (id) => `<div><input type="text" id="assocIn_${id}" class="app-input win95-border-inset" placeholder="Enter a word..."><button id="assocBtn_${id}" class="app-button">Associate!</button><div id="assocOut_${id}" class="app-output">...is like...</div></div>`,
+                    initScript: (id) => {const a=["a fluffy cloud","a rusty spoon","a forgotten dream","a secret handshake","a song stuck in your head"];document.getElementById(`assocBtn_${id}`).onclick=()=>{playSound('click');const i=document.getElementById(`assocIn_${id}`).value;document.getElementById(`assocOut_${id}`).textContent=i?`${i} is like ${a[Math.floor(Math.random()*a.length)]}`:"Enter a word!";};}
+                },
+                jokeExplainerApp: {
+                    title: "Joke Explainer", category: "Textual Torture", iconClass: "icon-joke-explainer", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><input type="text" id="jokeExplainIn_${id}" class="app-input win95-border-inset" placeholder="Tell me a joke to explain..."><button id="jokeExplainBtn_${id}" class="app-button">Explain It (Badly)</button><div id="jokeExplainOut_${id}" class="app-output">It's funny because... reasons.</div></div>`,
+                    initScript: (id) => {const ex=["...the unexpected juxtaposition creates humorous incongruity.","...it subverts common tropes with a witty observation.","...wordplay! Get it?","...it's probably not funny. My bad."];document.getElementById(`jokeExplainBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`jokeExplainOut_${id}`).textContent=document.getElementById(`jokeExplainIn_${id}`).value?`It's funny because ${ex[Math.floor(Math.random()*ex.length)]}`:"Tell me a joke first!";};}
+                },
+
+                // Category: Sound & Fury
+                beepBoxApp: {
+                    title: "Beep Box", category: "Sound & Fury", iconClass: "icon-beep-box", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:10px;"><p>Make some noise!</p><button data-freq="220" class="beepBtn app-button">Beep 1 (A3)</button><button data-freq="330" class="beepBtn app-button">Beep 2 (E4)</button><button data-freq="440" class="beepBtn app-button">Beep 3 (A4)</button></div>`,
+                    initScript: (id) => {initializeSounds();document.querySelectorAll(`#window-${id} .beepBtn`).forEach(b=>{b.onclick=()=>{if(!soundsReady)return;const o=new Tone.Synth().toDestination();o.triggerAttackRelease(parseFloat(b.dataset.freq),"8n");};});}
+                },
+                sillySoundBoardApp: {
+                    title: "Silly Sounds", category: "Sound & Fury", iconClass: "icon-silly-sound-board", allowMultiple: true, width: "350px", height: "220px",
+                    content: (id) => `<div style="text-align:center;padding-top:10px;"><p>Push my buttons!</p><button data-note="C4" class="soundBtn app-button">Boop</button><button data-note="E4" class="soundBtn app-button">Bleep</button><button data-note="G4" class="soundBtn app-button">Blop</button></div>`,
+                    initScript: (id) => {initializeSounds();document.querySelectorAll(`#window-${id} .soundBtn`).forEach(b=>{b.onclick=()=>{if(!soundsReady)return;const s=new Tone.Synth({oscillator:{type:"sawtooth"},envelope:{attack:0.01,decay:0.1,sustain:0.01,release:0.1}}).toDestination();s.triggerAttackRelease(b.dataset.note,"16n");};});}
+                },
+                echoChamberApp: {
+                    title: "Echo Chamber", category: "Sound & Fury", iconClass: "icon-echo-chamber", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div><input id="echoIn_${id}" class="app-input win95-border-inset" placeholder="Say something..."><button id="echoBtn_${id}" class="app-button">Echo</button><div id="echoOut_${id}" class="app-output">...</div></div>`,
+                    initScript: (id) => {document.getElementById(`echoBtn_${id}`).onclick = () => {playSound('click'); const i=document.getElementById(`echoIn_${id}`).value; document.getElementById(`echoOut_${id}`).textContent = `${i}... ${i}... ${i}!`;};}
+                },
+                virtualThereminApp: {
+                    title: "Virtual Theremin", category: "Sound & Fury", iconClass: "icon-virtual-theremin", allowMultiple: true, width: "350px", height: "280px",
+                    content: (id) => `<div id="thereminArea_${id}" style="width:100%;height:100%;background:#eee;border:1px solid #888;display:flex;align-items:center;justify-content:center;text-align:center;">Move mouse here for spooky sounds!</div>`,
+                    initScript: (id) => {initializeSounds();const area=document.getElementById(`thereminArea_${id}`);let thereminSynth;if(soundsReady){thereminSynth=new Tone.Synth({oscillator:{type:"sine"},envelope:{attack:0.1,decay:0.1,sustain:1,release:0.5}}).toDestination();thereminSynth.volume.value=-10;}area.onmouseenter=()=>{if(thereminSynth)thereminSynth.triggerAttack(440);};area.onmousemove=(e)=>{if(thereminSynth && typeof Math.map === 'function'){const freq=Math.map(e.offsetX,0,area.offsetWidth,200,1000,true);const vol=Math.map(e.offsetY,0,area.offsetHeight,-30,0,true);thereminSynth.frequency.rampTo(freq,0.05);thereminSynth.volume.rampTo(vol,0.05);}};area.onmouseleave=()=>{if(thereminSynth)thereminSynth.triggerRelease();}; Math.map=(n,s,e,ns,ne,w)=>{const nd=ne-ns,od=e-s;if(od===0)return ns;const r=nd/od;return w?Math.max(Math.min(ns+(n-s)*r,ne),ns):Math.max(Math.min(ns+(n-s)*r,ns),ne);};}
+                },
+                virtualKeyboardCatApp: {
+                    title: "Keyboard Cat", category: "Sound & Fury", iconClass: "icon-virtual-keyboard-cat", allowMultiple: true, width: "350px", height: "250px",
+                    content: (id) => `<div style="text-align:center;padding:20px;"><p>Meow meow meow!</p><button id="kbCatBtn_${id}" class="app-button">Play Keyboard Cat!</button></div>`,
+                    initScript: (id) => {initializeSounds();const notes=["C4","D4","E4","F4","G4"];document.getElementById(`kbCatBtn_${id}`).onclick=()=>{if(!soundsReady)return;const s=new Tone.Synth({oscillator:{type:"square"},envelope:{attack:0.01,decay:0.1,sustain:0.1,release:0.1}}).toDestination();s.volume.value=-10;let i=0;function playNote(){if(i<notes.length){s.triggerAttackRelease(notes[i], "8n", Tone.now() + i*0.2);i++;setTimeout(playNote,200);}else{s.triggerAttackRelease(notes[Math.floor(Math.random()*notes.length)], "4n", Tone.now() + i*0.2);}}playNote();};}
+                },
+
+                // Category: Amusements & Distractions
+                petRockApp: {
+                    title: "Pet Rock", category: "Amusements", iconClass: "icon-pet-rock", allowMultiple: true, width: "300px", height: "250px",
+                    content: (id) => `<div class="pet-rock-area"><div class="pet-rock-image">🪨</div><button id="petRockBtn_${id}" class="app-button">Pet the Rock</button><div id="petRockMsg_${id}" class="app-output">Your rock awaits.</div></div>`,
+                    initScript: (id) => {document.getElementById(`petRockBtn_${id}`).onclick = () => {playSound('click'); const msgs = ["The rock feels appreciated.", "It's a rock.", "You petted the rock. Solid.", "Rock on!"];document.getElementById(`petRockMsg_${id}`).textContent = msgs[Math.floor(Math.random() * msgs.length)];};}
+                },
+                sillyFortuneApp: {
+                    title: "Silly Fortune", category: "Amusements", iconClass: "icon-silly-fortune", allowMultiple: true, width: "400px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="fortuneBtn_${id}" class="app-button">What's My Silly Fortune?</button><div id="fortuneDisplay_${id}" class="app-output" style="min-height:50px;">The future is murky...</div></div>`,
+                    initScript: (id) => {const fo=["Find a slightly damp sock.","A pigeon will compliment your hair.","Beware rogue squirrels with tiny hats.","Lucky number 7... or 3.","Soon step on a LEGO. Brace yourself."];document.getElementById(`fortuneBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`fortuneDisplay_${id}`).textContent = fo[Math.floor(Math.random()*fo.length)];};}
+                },
+                magic8BallApp: {
+                    title: "Magic 8-Ball", category: "Amusements", iconClass: "icon-magic-8-ball", allowMultiple: true, width: "300px", height: "250px",
+                    content: (id) => `<div style="text-align:center;"><input type="text" id="m8Question_${id}" class="app-input win95-border-inset" placeholder="Ask a yes/no question..."><button id="m8Btn_${id}" class="app-button">Ask</button><div id="m8Out_${id}" class="app-output" style="font-weight:bold;">🎱</div></div>`,
+                    initScript: (id) => {const a=["Yes.","No.","Maybe.","Ask again later.","Definitely!","Outlook not so good."]; document.getElementById(`m8Btn_${id}`).onclick = () => {playSound('click'); document.getElementById(`m8Out_${id}`).textContent = document.getElementById(`m8Question_${id}`).value ? a[Math.floor(Math.random()*a.length)] : "Ask something first!"; document.getElementById(`m8Question_${id}`).value='';};}
+                },
+                complimentGeneratorApp: {
+                    title: "Compliments", category: "Amusements", iconClass: "icon-compliment-generator", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="compBtn_${id}" class="app-button">Get Compliment</button><div id="compOut_${id}" class="app-output">You're awesome!</div></div>`,
+                    initScript: (id) => {const c=["You're brilliant!","Nice shoes!","Great smile!","You're a star!","Superb!"]; document.getElementById(`compBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`compOut_${id}`).textContent = c[Math.floor(Math.random()*c.length)];}}
+                },
+                mildInsultGeneratorApp: {
+                    title: "Mild Insults", category: "Amusements", iconClass: "icon-mild-insult", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="insultBtn_${id}" class="app-button">Mild Insult Me</button><div id="insultOut_${id}" class="app-output">You smell like old cheese.</div></div>`,
+                    initScript: (id) => {const i=["Your socks probably don't match.","You look like you eat crayons.","A bit of a space cadet, eh?","You're not the sharpest tool."]; document.getElementById(`insultBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`insultOut_${id}`).textContent = i[Math.floor(Math.random()*i.length)];}}
+                },
+                spiritAnimalApp: {
+                    title: "Spirit Animal", category: "Amusements", iconClass: "icon-spirit-animal", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="spiritBtn_${id}" class="app-button">My Spirit Animal?</button><div id="spiritOut_${id}" class="app-output">A majestic creature awaits...</div></div>`,
+                    initScript: (id) => {const sa=["A slightly confused platypus.","A caffeinated squirrel.","A philosophical sloth.","A disco-dancing flamingo.","A napping cat."]; document.getElementById(`spiritBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`spiritOut_${id}`).textContent = sa[Math.floor(Math.random()*sa.length)];}}
+                },
+                meaningOfLifeApp: {
+                    title: "Meaning of Life", category: "Amusements", iconClass: "icon-meaning-of-life", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><button id="molBtn_${id}" class="app-button">The Meaning?</button><div id="molOut_${id}" class="app-output" style="font-size:28px;font-weight:bold;">?</div></div>`,
+                    initScript: (id) => {const m=["42.","To crush your enemies.","Chocolate.","Ask again when I'm less busy.","It's complicated."]; document.getElementById(`molBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`molOut_${id}`).textContent = m[Math.floor(Math.random()*m.length)];}}
+                },
+                virtualBubbleWrapApp: {
+                    title: "Bubble Wrap", category: "Amusements", iconClass: "icon-virtual-bubblewrap", allowMultiple: true, width: "320px", height: "280px",
+                    content: (id) => `<div class="bubblewrap-container" id="bubbleWrap_${id}" style="display:flex;flex-wrap:wrap;justify-content:center;"></div>`,
+                    initScript: (id) => {const cont=document.getElementById(`bubbleWrap_${id}`);for(let i=0;i<40;i++){const b=document.createElement('button');b.onclick=()=>{if(!b.classList.contains('popped')){playSound('click');b.classList.add('popped');}};cont.appendChild(b);}}
+                },
+                desktopConfettiApp: {
+                    title: "Desktop Confetti", category: "Amusements", iconClass: "icon-desktop-confetti", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:30px;"><button id="confettiBtn_${id}" class="app-button">CONFETTI!</button></div>`,
+                    initScript: (id) => {document.getElementById(`confettiBtn_${id}`).onclick = () => {playSound('open'); for(let i=0;i<30;i++){const c=document.createElement('div');c.style.position='fixed';c.style.left=`${Math.random()*100}vw`;c.style.top=`${Math.random()*100}vh`;c.style.width=`${Math.random()*10+5}px`;c.style.height=c.style.width;c.style.backgroundColor=`hsl(${Math.random()*360},100%,70%)`;c.style.borderRadius='50%';c.style.zIndex=highestZIndex+100;c.style.transition='transform 1s ease-out, opacity 1s ease-out';document.body.appendChild(c);setTimeout(()=>{c.style.transform=`translateY(100px) rotate(${Math.random()*720}deg)`;c.style.opacity=0;setTimeout(()=>c.remove(),1000);},10);}};}
+                },
+                motivationalPosterApp: {
+                    title: "Motivation?", category: "Amusements", iconClass: "icon-motivational-poster", allowMultiple: true, width: "350px", height: "280px",
+                    content: (id) => `<div id="poster_${id}" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:black;color:white;text-align:center;font-family:Impact,sans-serif;"><div id="posterImg_${id}" style="width:80%;height:60%;background:grey;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:40px;">⛰️</div><h2 id="posterTitle_${id}" style="font-size:24px;margin:5px 0;">PERSEVERE</h2><p id="posterText_${id}" style="font-size:14px;font-family:Arial,sans-serif;">Even if it's pointless.</p><button id="newPosterBtn_${id}" class="app-button" style="position:absolute;bottom:5px;">New Poster</button></div>`,
+                    initScript: (id) => {const t=["SUCCESS","TEAMWORK","DREAMS","FAILURE","PROCRASTINATION"],i=["🏆","🤝","🌠","📉","☕"],s=["It's mostly luck.","Someone else did the work.","Wake up.","It's an option.","Later is better."];const pI=document.getElementById(`posterImg_${id}`),pT=document.getElementById(`posterTitle_${id}`),pS=document.getElementById(`posterText_${id}`);function np(){const idx=Math.floor(Math.random()*t.length);pI.textContent=i[idx];pT.textContent=t[idx];pS.textContent=s[idx];}document.getElementById(`newPosterBtn_${id}`).onclick=()=>{playSound('click');np();};np();}
+                },
+                 virtualStressBallApp: {
+                    title: "Stress Ball", category: "Amusements", iconClass: "icon-virtual-stress-ball", allowMultiple: true, width: "250px", height: "250px",
+                    content: (id) => `<div style="display:flex;align-items:center;justify-content:center;height:100%;"><div id="stressBall_${id}" style="width:100px;height:100px;background:lightcoral;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.1s;">Squeeze!</div></div>`,
+                    initScript: (id) => {const sb=document.getElementById(`stressBall_${id}`);sb.onmousedown=()=>{playSound('click');sb.style.transform='scale(0.9)';};sb.onmouseup=()=>{sb.style.transform='scale(1)';};}
+                },
+                pointlessPollApp: {
+                    title: "Pointless Poll", category: "Amusements", iconClass: "icon-pointless-poll", allowMultiple: true, width: "350px", height: "220px",
+                    content: (id) => `<div style="text-align:center;"><p>Cats or Dogs?</p><button class="pollBtn app-button">Cats</button><button class="pollBtn app-button">Dogs</button><div id="pollResult_${id}" class="app-output">Vote now!</div></div>`,
+                    initScript: (id) => {document.querySelectorAll(`#window-${id} .pollBtn`).forEach(b=>b.onclick=()=>{playSound('click');document.getElementById(`pollResult_${id}`).textContent=`You chose ${b.textContent}! Good choice?`;});}
+                },
+                virtualHighFiveApp: {
+                    title: "Virtual High Five", category: "Amusements", iconClass: "icon-virtual-highfive", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:30px;"><button id="highFiveBtn_${id}" class="app-button" style="font-size:20px;">High Five!</button><div id="highFiveMsg_${id}" class="app-output">✋</div></div>`,
+                    initScript: (id) => {document.getElementById(`highFiveBtn_${id}`).onclick=()=>{playSound('open');document.getElementById(`highFiveMsg_${id}`).textContent="✋💥🤚 Up top!";setTimeout(()=>document.getElementById(`highFiveMsg_${id}`).textContent="✋",1000);};}
+                },
+                digitalFidgetSpinnerApp: {
+                    title: "Fidget Spinner", category: "Amusements", iconClass: "icon-digital-fidget-spinner", allowMultiple: true, width: "250px", height: "280px",
+                    content: (id) => `<div style="display:flex;align-items:center;justify-content:center;height:100%;"><svg id="fidgetSpinner_${id}" width="100" height="100" viewBox="-50 -50 100 100"><circle cx="0" cy="0" r="10" fill="gray"/><circle cx="0" cy="-25" r="10" fill="red"/><circle cx="21.65" cy="12.5" r="10" fill="green"/><circle cx="-21.65" cy="12.5" r="10" fill="blue"/><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="1s" repeatCount="indefinite" begin="0s"/></svg></div><p style="text-align:center;">Mesmerizing!</p>`,
+                },
+                complaintBoxApp: {
+                    title: "Complaint Box", category: "Amusements", iconClass: "icon-complaint-box", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><textarea id="complaintIn_${id}" class="app-input win95-border-inset" style="height:80px;" placeholder="Vent your frustrations..."></textarea><button id="complaintBtn_${id}" class="app-button">Submit Complaint</button><div id="complaintOut_${id}" class="app-output">Your complaint has been... noted.</div></div>`,
+                    initScript: (id) => {document.getElementById(`complaintBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`complaintOut_${id}`).textContent="Thank you. Your complaint is very important to us (not really).";document.getElementById(`complaintIn_${id}`).value='';};}
+                },
+                affirmationGeneratorApp: {
+                    title: "Affirmations", category: "Amusements", iconClass: "icon-affirmation-generator", allowMultiple: true, width: "350px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="affirmBtn_${id}" class="app-button">Get Affirmation</button><div id="affirmOut_${id}" class="app-output">You are capable!</div></div>`,
+                    initScript: (id) => {const af=["You are enough.","You are doing great.","You are awesome.","You deserve good things."];document.getElementById(`affirmBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`affirmOut_${id}`).textContent=af[Math.floor(Math.random()*af.length)];};}
+                },
+                virtualCookieApp: {
+                    title: "Virtual Cookie", category: "Amusements", iconClass: "icon-virtual-cookie", allowMultiple: true, width: "300px", height: "220px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><p>Have a virtual cookie!</p><div style="font-size:60px;margin:10px;">🍪</div><button id="eatCookieBtn_${id}" class="app-button">Eat Cookie</button><div id="cookieMsg_${id}" class="app-output">Yum!</div></div>`,
+                    initScript: (id) => {document.getElementById(`eatCookieBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`cookieMsg_${id}`).textContent="Deliciously digital!";};}
+                },
+                excuseGeneratorApp: {
+                    title: "Excuse Generator", category: "Amusements", iconClass: "icon-excuse-generator", allowMultiple: true, width: "400px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="excuseBtn_${id}" class="app-button">Generate Excuse</button><div id="excuseOut_${id}" class="app-output">My dog ate my homework.</div></div>`,
+                    initScript: (id) => {const ex=["A rogue squirrel stole it.","I was abducted by aliens.","My computer got a virus (this one!).","The cosmic rays were too strong."];document.getElementById(`excuseBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`excuseOut_${id}`).textContent=ex[Math.floor(Math.random()*ex.length)];};}
+                },
+                digitalSnowglobeApp: {
+                    title: "Digital Snowglobe", category: "Amusements", iconClass: "icon-digital-snowglobe", allowMultiple: true, width: "300px", height: "300px",
+                    content: (id) => `<div id="snowglobe_${id}" style="width:100%;height:100%;background:radial-gradient(ellipse at bottom, #607D8B 60%, #B0BEC5 100%);border-radius:50% 50% 5px 5px;position:relative;overflow:hidden;border:5px solid #455A64;"><div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:80px;height:30px;background:#795548;border-radius:5px;"></div></div>`,
+                    initScript: (id) => {const sg=document.getElementById(`snowglobe_${id}`);for(let i=0;i<50;i++){const s=document.createElement('div');s.style.cssText=`position:absolute;width:5px;height:5px;background:white;border-radius:50%;left:${Math.random()*90+5}%;top:-10px;animation:fall ${Math.random()*5+5}s linear infinite;animation-delay:${Math.random()*5}s;`;sg.appendChild(s);}const kf=`@keyframes fall{to{transform:translateY(${sg.offsetHeight+10}px) translateX(${Math.random()*40-20}px);opacity:0;}}`;const styleEl=document.createElement('style');styleEl.innerHTML=kf;document.head.appendChild(styleEl);}
+                },
+                procrastinationHelperApp: {
+                    title: "Procrastination Helper", category: "Amusements", iconClass: "icon-procrastination-helper", allowMultiple: true, width: "350px", height: "220px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><p>Feeling productive? Let's fix that.</p><button id="procrastinateBtn_${id}" class="app-button">Help Me Procrastinate</button><div id="procrastinateMsg_${id}" class="app-output">Maybe later...</div></div>`,
+                    initScript: (id) => {const pr=["Watch a cat video.","Stare blankly at the wall.","Organize your sock drawer.","Nap time!"];document.getElementById(`procrastinateBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`procrastinateMsg_${id}`).textContent=pr[Math.floor(Math.random()*pr.length)];};}
+                },
+                existentialButtonApp: {
+                    title: "Existential Button", category: "Amusements", iconClass: "icon-existential-button", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:30px;"><button id="existentialBtn_${id}" class="app-button" style="background:purple;color:white;">Push to Ponder</button><div id="existentialMsg_${id}" class="app-output">What is the point?</div></div>`,
+                    initScript: (id) => {const ex=["Why are we here?","Does this button matter?","Is anything real?","To click, or not to click?"];document.getElementById(`existentialBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`existentialMsg_${id}`).textContent=ex[Math.floor(Math.random()*ex.length)];};}
+                },
+
+
+                // Category: Simulations & Illusions
+                infiniteProgressBarApp: {
+                    title: "Infinite Progress", category: "Simulations", iconClass: "icon-infinite-progress", allowMultiple: true, width: "380px", height: "180px",
+                    content: (id) => `<div style="padding:10px;"><p>Loading something amazing... eventually.</p><div class="progress-bar-container win95-border-inset"><div id="progressBarFill_${id}" class="progress-bar-fill">0%</div></div></div>`,
+                    initScript: (id) => {let p=0; const bf=document.getElementById(`progressBarFill_${id}`);function up(){if(!document.getElementById(`window-${id}`))return;p=(p+1)%101;bf.style.width=`${p}%`;bf.textContent=`${p}%`;setTimeout(up,100);}up();}
+                },
+                loadingSimulatorApp: {
+                    title: "Loading Sim", category: "Simulations", iconClass: "icon-loading-simulator", allowMultiple: true, width: "300px", height: "180px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><p id="loadMsg_${id}">Loading important data...</p><div class="progress-bar-container win95-border-inset"><div id="loadBar_${id}" class="progress-bar-fill" style="width:10%;">10%</div></div></div>`,
+                    initScript: (id) => {let p=10, dir=1; const m=document.getElementById(`loadMsg_${id}`),b=document.getElementById(`loadBar_${id}`), msgs=["Compressing files...","Recalibrating...","Almost there...","Just a bit more..."]; function ul(){if(!document.getElementById(`window-${id}`))return; p+=dir; if(p>=95||p<=5)dir*=-1; if(p%20===0)m.textContent=msgs[Math.floor(Math.random()*msgs.length)]; b.style.width=`${p}%`;b.textContent=`${p}%`; setTimeout(ul,200);}ul();}
+                },
+                uselessButtonApp: {
+                    title: "Useless Button", category: "Simulations", iconClass: "icon-useless-button", allowMultiple: true, width: "300px", height: "200px",
+                    content: (id) => `<div style="text-align:center;padding-top:30px;"><button id="uselessBtn_${id}" class="app-button" style="padding:15px 25px;">Push Me?</button><div id="uselessMsg_${id}" class="app-output" style="margin-top:20px;">...</div></div>`,
+                    initScript: (id) => {document.getElementById(`uselessBtn_${id}`).onclick = () => {playSound('click');document.getElementById(`uselessMsg_${id}`).textContent = "Yep, that did absolutely nothing. Congrats!";}}
+                },
+                 desktopPetApp: {
+                    title: "Desktop Pet", category: "Simulations", iconClass: "icon-desktop-pet", allowMultiple: false, width: "60px", height: "60px",
+                    content: () => `<div id="desktopPet" style="font-size:32px;text-align:center;line-height:60px;cursor:grab;width:100%;height:100%;">🐌</div>`,
+                    initScript: (instanceId) => {
+                        const win = document.getElementById(`window-${instanceId}`);
+                        win.style.background = 'transparent';
+                        win.style.border = 'none';
+                        win.style.boxShadow = 'none';
+                        win.querySelector('.window-title-bar').style.display = 'none';
+                        win.querySelector('.window-body').style.height = '100%';
+                        win.querySelector('.window-body').style.padding = '0';
+                        win.querySelector('.window-content').style.background = 'transparent';
+                        win.querySelector('.window-content').style.border = 'none';
+                        win.style.resize = 'none';
+
+                        let x = Math.random() * (desktop.clientWidth - 60);
+                        let y = Math.random() * (desktop.clientHeight - 100);
+                        let dx = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 0.5 + 0.2);
+                        let dy = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 0.5 + 0.2);
+
+                        function movePet() {
+                            if (!openWindows[instanceId]) return;
+                            x += dx; y += dy;
+                            if (x > desktop.clientWidth - 60 || x < 0) dx *= -1;
+                            if (y > desktop.clientHeight - 100 || y < 0) dy *= -1;
+                            win.style.left = `${x}px`;
+                            win.style.top = `${y}px`;
+                            requestAnimationFrame(movePet);
+                        }
+                        movePet();
+                    }
+                },
+                windowWasherApp: {
+                    title: "Window Washer", category: "Simulations", iconClass: "icon-window-washer", allowMultiple: true, width: "300px", height: "250px",
+                    content: (id) => `<div id="washAnim_${id}" style="width:100%;height:100%;background:rgba(173,216,230,0.3);position:relative;overflow:hidden;"><div id="squeegee_${id}" style="width:20px;height:80px;background:gray;position:absolute;left:-20px;top:0;"></div></div>`,
+                    initScript: (id) => {const s=document.getElementById(`squeegee_${id}`);let l=0,d=1;function w(){if(!document.getElementById(`window-${id}`))return;l+=d*2;s.style.left=`${l}px`;if(l>280||l<0)d*=-1;requestAnimationFrame(w);}w();}
+                },
+                progressStealerApp: {
+                    title: "Progress Stealer", category: "Simulations", iconClass: "icon-progress-stealer", allowMultiple: true, width: "380px", height: "180px",
+                    content: (id) => `<div style="padding:10px;"><p>Definitely making progress...</p><div class="progress-bar-container win95-border-inset"><div id="stealBar_${id}" class="progress-bar-fill" style="background-color:red;">50%</div></div></div>`,
+                    initScript: (id) => {let p=50; const bf=document.getElementById(`stealBar_${id}`);function sp(){if(!document.getElementById(`window-${id}`))return;p-=(Math.random()*2);if(p<0)p=0;bf.style.width=`${p}%`;bf.textContent=`${Math.floor(p)}%`;if(p>0)setTimeout(sp,300);else bf.textContent='Stolen!';}sp();}
+                },
+                fakeBsodApp: {
+                    title: "Blue Screen", category: "Simulations", iconClass: "icon-fake-bsod", allowMultiple: true, width: "500px", height: "350px",
+                    content: () => `<div style="width:100%;height:100%;background:blue;color:white;font-family:monospace;font-size:14px;padding:20px;box-sizing:border-box;white-space:pre;">A fatal exception 0E has occurred at 0137:BF7FF831.\nThe current application will be terminated.\n\n* Press any key to terminate the current application.\n* Press CTRL+ALT+DEL again to restart your computer.\n  You will lose any unsaved information in all applications.\n\nPress any key to continue _</div>`
+                },
+                annoyingPopupsApp: {
+                    title: "Popup Attack!", category: "Simulations", iconClass: "icon-annoying-popups", allowMultiple: true, width: "350px", height: "250px",
+                    content: (id) => `<div style="text-align:center;padding-top:20px;"><p>Warning: May cause annoyance.</p><button id="popupBtn_${id}" class="app-button">Start Popups</button></div>`,
+                    initScript: (id) => {let pC=0;document.getElementById(`popupBtn_${id}`).onclick=()=>{playSound('error');const p=document.createElement('div');p.style.cssText='position:absolute;width:150px;height:80px;background:#c0c0c0;border:1px solid black;z-index:100;text-align:center;padding:5px;font-size:10px;';p.style.left=`${Math.random()*150+20}px`;p.style.top=`${Math.random()*120+20}px`;p.innerHTML=`<p>Error ${++pC}!</p><button onclick="this.parentElement.remove()">OK</button>`;document.getElementById(`window-${id}`).querySelector('.window-content').appendChild(p);};}
+                },
+                petNameGeneratorApp: {
+                    title: "Pet Name Gen", category: "Simulations", iconClass: "icon-pet-name-gen", allowMultiple: true, width: "350px", height: "220px",
+                    content: (id) => `<div style="text-align:center;padding:10px;"><p>Your Name: <input type="text" id="petNameInput_${id}" class="app-input win95-border-inset" style="width:150px;margin-bottom:10px;"></p><button id="petNameBtn_${id}" class="app-button">Get Pet Name!</button><div id="petNameOut_${id}" class="app-output">Your pet name awaits...</div></div>`,
+                    initScript: (id) => {const adj=["Captain","Professor","Agent","Doctor","Sir","Madam","Commander","Baron","Lady","Lord"]; const noun=["Fluffybutt","Wigglepants","Sparklehoof","GiggleMuffin","Zoomer","Snugglebug","NoodleDoodle","Puddlejumper","Quirkmeister","Zippity"]; document.getElementById(`petNameBtn_${id}`).onclick=()=>{playSound('click');const i=document.getElementById(`petNameInput_${id}`).value;document.getElementById(`petNameOut_${id}`).textContent=i?`Your pet name is: ${adj[Math.floor(Math.random()*adj.length)]} ${noun[Math.floor(Math.random()*noun.length)]}!`:"Enter your name first!";};}
+                },
+                badAdviceGeneratorApp: {
+                    title: "Bad Advice", category: "Simulations", iconClass: "icon-bad-advice-gen", allowMultiple: true, width: "400px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="badAdviceBtn_${id}" class="app-button">Get Bad Advice!</button><div id="badAdviceOut_${id}" class="app-output" style="min-height:50px;">Need some guidance?</div></div>`,
+                    initScript: (id) => {const adv=["Always run with scissors, it's faster.","If you're tired, just sleep while driving.","For a quick snack, try eating glue.","Never look before you leap. Surprises are fun!","Argue with everyone. It shows you're passionate."]; document.getElementById(`badAdviceBtn_${id}`).onclick=()=>{playSound('click');document.getElementById(`badAdviceOut_${id}`).textContent=adv[Math.floor(Math.random()*adv.length)];};}
+                },
+                complimentSandwichApp: {
+                    title: "Compliment Sandwich", category: "Simulations", iconClass: "icon-compliment-sandwich", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div style="text-align:center;padding:10px;"><p>Enter a mild critique:</p><input type="text" id="critiqueIn_${id}" class="app-input win95-border-inset"><button id="sandwichBtn_${id}" class="app-button">Make Sandwich</button><div id="sandwichOut_${id}" class="app-output" style="min-height:80px;">Ready for feedback?</div></div>`,
+                    initScript: (id) => {const c1=["You're so creative!","I admire your effort.","That's a unique approach!"],c2=["You're a star!","Keep up the great work!","Fantastic job!"];document.getElementById(`sandwichBtn_${id}`).onclick=()=>{playSound('click');const crit=document.getElementById(`critiqueIn_${id}`).value;document.getElementById(`sandwichOut_${id}`).textContent=`${c1[Math.floor(Math.random()*c1.length)]}\n\nWhile "${crit||'that thing'}", it's clear you're trying.\n\n${c2[Math.floor(Math.random()*c2.length)]}`;};}
+                },
+
+                // Category: Deep Thoughts
+                badJokeApp: {
+                    title: "Bad Joke Machine", category: "Deep Thoughts", iconClass: "icon-bad-joke", allowMultiple: true, width: "380px", height: "220px",
+                    content: (id) => `<div style="text-align:center;"><button id="jokeBtn_${id}" class="app-button">Tell me a joke!</button><div id="jokeDisplay_${id}" class="app-output" style="min-height:60px;">Ready for a chuckle?</div></div>`,
+                    initScript: (id) => {const j=["Why don't scientists trust atoms? They make up everything!","Scarecrow won an award? Outstanding in his field!","Fake spaghetti? An impasta!","Bicycle fall over? Two tired!","February March? No, April May!"];document.getElementById(`jokeBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`jokeDisplay_${id}`).textContent = j[Math.floor(Math.random()*j.length)];};}
+                },
+                uselessFactApp: {
+                    title: "Useless Facts", category: "Deep Thoughts", iconClass: "icon-useless-fact", allowMultiple: true, width: "400px", height: "200px",
+                    content: (id) => `<div style="text-align:center;"><button id="factBtn_${id}" class="app-button">Gimme a Useless Fact!</button><div id="factDisplay_${id}" class="app-output" style="min-height:50px;">Prepare for triviality!</div></div>`,
+                    initScript: (id) => {const f=["A flock of crows is a murder.","Hashtag is an octothorpe.","A jiffy is 1/100th of a second.","Banging head on wall burns 150 cal/hr.","Crocodile can't stick tongue out."];document.getElementById(`factBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`factDisplay_${id}`).textContent = f[Math.floor(Math.random()*f.length)];};}
+                },
+                annoyingAssistantApp: {
+                    title: "Annoying Assistant", category: "Deep Thoughts", iconClass: "icon-annoying-assistant", allowMultiple: true, width: "400px", height: "230px",
+                    content: (id) => `<div><input type="text" id="assistantInput_${id}" class="app-input win95-border-inset" placeholder="Tell me something..."><button id="assistantSendBtn_${id}" class="app-button">Send</button><div id="assistantOutput_${id}" class="app-output" style="min-height:40px;">Assistant is listening...</div></div>`,
+                    initScript: (id) => {const r=["That's... interesting.","Are you sure?","Oh, really?","Fascinating. Not.","I see.","Tell me more. Or don't."];document.getElementById(`assistantSendBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`assistantInput_${id}`).value='';document.getElementById(`assistantOutput_${id}`).textContent = r[Math.floor(Math.random()*r.length)];};}
+                },
+                philosophersCornerApp: {
+                    title: "Philosopher's Corner", category: "Deep Thoughts", iconClass: "icon-philosophers-corner", allowMultiple: true, width: "400px", height: "220px",
+                    content: (id) => `<div style="text-align:center;"><button id="philBtn_${id}" class="app-button">Pose a Question</button><div id="philOut_${id}" class="app-output" style="min-height:60px;">Ponder this...</div></div>`,
+                    initScript: (id) => {const q=["If a tree falls in a forest and no one is around, does it make a sound?","What is the sound of one hand clapping?","Why is there something rather than nothing?","Is this real life? Or just fantasy?"];document.getElementById(`philBtn_${id}`).onclick = () => {playSound('click'); document.getElementById(`philOut_${id}`).textContent = q[Math.floor(Math.random()*q.length)];};}
+                },
+                 jokeExplainerApp: { // Duplicate of the one in Textual Torture, kept for structural integrity if it was intentional
+                    title: "Joke Explainer", category: "Deep Thoughts", iconClass: "icon-joke-explainer", allowMultiple: true, width: "400px", height: "250px",
+                    content: (id) => `<div><input type="text" id="jokeExplainIn_${id}_deep" class="app-input win95-border-inset" placeholder="Tell me a joke to explain..."><button id="jokeExplainBtn_${id}_deep" class="app-button">Explain It (Badly)</button><div id="jokeExplainOut_${id}_deep" class="app-output">It's funny because... reasons.</div></div>`,
+                    initScript: (id) => {const ex=["...the unexpected juxtaposition creates humorous incongruity.","...it subverts common tropes with a witty observation.","...wordplay! Get it?","...it's probably not funny. My bad."];document.getElementById(`jokeExplainBtn_${id}_deep`).onclick=()=>{playSound('click');document.getElementById(`jokeExplainOut_${id}_deep`).textContent=document.getElementById(`jokeExplainIn_${id}_deep`).value?`It's funny because ${ex[Math.floor(Math.random()*ex.length)]}`:"Tell me a joke first!";};}
+                }
+            };
+
+            function openApp(appId) {
+                if (appId === 'shutdown') {
+                    activateShutdownScreen();
+                } else {
+                    const appConfig = applications[appId];
+                    if (appConfig) {
+                        const effectiveConfig = {...appConfig, windowIconClass: appConfig.windowIconClass || appConfig.iconClass };
+                        createWindow(appId, effectiveConfig);
+                    } else {
+                        console.warn(`App with ID "${appId}" not found.`);
+                    }
+                }
+                closeStartMenu();
+            }
+
+            function populateStartMenuAndDesktop() {
+                while(startMenuItemsList.firstChild && startMenuItemsList.firstChild.id !== 'startMenuSeparatorBeforeShutdown') {
+                    startMenuItemsList.removeChild(startMenuItemsList.firstChild);
+                }
+                desktop.innerHTML = '';
+
+                const categories = {};
+                Object.keys(applications).forEach(appId => {
+                    const app = applications[appId];
+                    const category = app.category || "Miscellaneous";
+                    if (!categories[category]) categories[category] = [];
+                    categories[category].push({id: appId, ...app});
+                    createDesktopIcon(appId, app);
+                });
+
+                Object.keys(categories).sort().forEach(categoryName => {
+                    const categoryItem = document.createElement('li');
+                    categoryItem.className = 'start-menu-item has-submenu';
+
+                    const menuIconDiv = document.createElement('div');
+                    menuIconDiv.className = `start-menu-item-icon icon-folder`;
+                    categoryItem.appendChild(menuIconDiv);
+
+                    const categoryText = document.createElement('span');
+                    categoryText.textContent = " " + categoryName;
+                    categoryItem.appendChild(categoryText);
+
+                    const submenu = document.createElement('ul');
+                    submenu.className = 'start-menu-submenu';
+                    document.body.appendChild(submenu);
+
+
+                    categories[categoryName].sort((a,b) => a.title.localeCompare(b.title)).forEach(appData => {
+                        const appItem = document.createElement('li');
+                        appItem.className = 'start-menu-item';
+                        appItem.dataset.appId = appData.id;
+
+                        const appIconDiv = document.createElement('div');
+                        appIconDiv.className = `start-menu-item-icon ${appData.iconClass || 'icon-programs'}`;
+                        appItem.appendChild(appIconDiv);
+
+                        const appText = document.createElement('span');
+                        if (appData.title.length > 0) {
+                             appText.innerHTML = ` <u>${appData.title.charAt(0)}</u>${appData.title.substring(1)}`;
+                        } else {
+                            appText.textContent = " " + appData.title;
+                        }
+                        appItem.appendChild(appText);
+
+                        appItem.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            openApp(appData.id);
+                        });
+                        submenu.appendChild(appItem);
+                    });
+                    categoryItem.appendChild(submenu);
+                    startMenuItemsList.insertBefore(categoryItem, startMenuSeparatorBeforeShutdown);
+
+                    categoryItem.addEventListener('mouseenter', function(e) {
+                        clearTimeout(activeSubmenuTimer);
+                        const sub = this.querySelector('.start-menu-submenu');
+                        if (!sub) return;
+
+                        if (currentlyHoveredSubmenu && currentlyHoveredSubmenu !== sub) {
+                            currentlyHoveredSubmenu.style.display = 'none';
+                            if(currentlyHoveredSubmenu.parentElement) {
+                                currentlyHoveredSubmenu.parentElement.classList.remove('hover-open');
+                            }
+                        }
+
+                        this.classList.add('hover-open');
+                        positionSubmenu(sub, this);
+                        currentlyHoveredSubmenu = sub;
+                    });
+
+                    categoryItem.addEventListener('mouseleave', function(e) {
+                        const sub = this.querySelector('.start-menu-submenu');
+                        if (!sub) return;
+
+                        if (e.relatedTarget && sub.contains(e.relatedTarget)) {
+                            return;
+                        }
+
+                        activeSubmenuTimer = setTimeout(() => {
+                            if (!this.matches(':hover') && !sub.matches(':hover')) {
+                                sub.style.display = 'none';
+                                this.classList.remove('hover-open');
+                                if (currentlyHoveredSubmenu === sub) {
+                                    currentlyHoveredSubmenu = null;
+                                }
+                            }
+                        }, 150);
+                    });
+
+                    categoryItem.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        playSound('click');
+                        const sub = this.querySelector('.start-menu-submenu');
+                        if (sub) {
+                             if (currentlyHoveredSubmenu && currentlyHoveredSubmenu !== sub) {
+                                currentlyHoveredSubmenu.style.display = 'none';
+                                if(currentlyHoveredSubmenu.parentElement) {
+                                   currentlyHoveredSubmenu.parentElement.classList.remove('hover-open');
+                                }
+                            }
+                            this.classList.add('hover-open');
+                            positionSubmenu(sub, this);
+                            currentlyHoveredSubmenu = sub;
+                        }
+                    });
+
+
+                    submenu.addEventListener('mouseenter', function(e) {
+                        clearTimeout(activeSubmenuTimer);
+                        const parentCategoryItem = this.parentElement;
+                        if(parentCategoryItem) parentCategoryItem.classList.add('hover-open');
+                    });
+
+                    submenu.addEventListener('mouseleave', function(e) {
+                        const parentCategoryItem = this.parentElement;
+                        if (e.relatedTarget && parentCategoryItem && parentCategoryItem.contains(e.relatedTarget)) {
+                            return;
+                        }
+
+                        activeSubmenuTimer = setTimeout(() => {
+                             if (!this.matches(':hover') && (!parentCategoryItem || !parentCategoryItem.matches(':hover'))) {
+                                this.style.display = 'none';
+                                if(parentCategoryItem) parentCategoryItem.classList.remove('hover-open');
+                                if (currentlyHoveredSubmenu === this) {
+                                    currentlyHoveredSubmenu = null;
+                                }
+                            }
+                        }, 150);
+                    });
+                });
+
+                function positionSubmenu(submenuEl, parentItemEl) {
+                    if (!submenuEl.parentElement) {
+                        document.body.appendChild(submenuEl);
+                    }
+                    submenuEl.style.display = 'block';
+
+                    const parentRect = parentItemEl.getBoundingClientRect();
+                    const subWidth = submenuEl.offsetWidth;
+                    const subHeight = submenuEl.offsetHeight;
+                    const taskbarHeight = 40;
+
+                    let desiredLeft = parentRect.right;
+                    let desiredTop = parentRect.top;
+
+                    if (desiredLeft + subWidth > window.innerWidth) {
+                        desiredLeft = parentRect.left - subWidth;
+                    }
+                    if (desiredTop + subHeight > (window.innerHeight - taskbarHeight)) {
+                        desiredTop = window.innerHeight - taskbarHeight - subHeight;
+                    }
+                    desiredTop = Math.max(0, desiredTop);
+                    desiredLeft = Math.max(0, desiredLeft);
+
+                    submenuEl.style.left = `${desiredLeft}px`;
+                    submenuEl.style.top = `${desiredTop}px`;
+
+                    if (submenuEl.parentElement !== parentItemEl) {
+                        parentItemEl.appendChild(submenuEl);
+                    }
+                }
+
+
+                const shutdownListItem = startMenuItemsList.querySelector('li[data-app-id="shutdown"]');
+                if (shutdownListItem) {
+                    shutdownListItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openApp('shutdown');
+                    });
+                }
+            }
+
+            populateStartMenuAndDesktop();
+            updateTaskbarAppWidths();
+
+        });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CQ4D3VQ3L"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1CQ4D3VQ3L');
+    </script>
+
+</body>
+</html>
