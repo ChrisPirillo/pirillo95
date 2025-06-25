@@ -5,4 +5,6 @@ Experience the nostalgia of Windows 95 with Pirillo95, a web-based retro OS simu
 
 ---
 
+![Screenshot](https://github.com/ChrisPirillo/pirillo95/blob/main/assets/screenshot.png?raw=true)
+
 * Try it now: [https://pirillo.com/arcade/pirillo95.html](https://pirillo.com/arcade/pirillo95.html)
